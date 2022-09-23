@@ -22,12 +22,12 @@ npm install
 ## Usage
 
 ```bash
-expo start
+npm start
 ```
 
 ## Authors
 <div align="center">
     
-Eddy MANDRAN [@eddymandran](https://github.com/eddymandran)  | Julien PELLATTIERO [@Pella0](https://github.com/Pella0)   | Simon MAINFROY [@SimonMfroy](https://github.com/SimonMfroy)
+Eddy MANDRAN [@eddymandran](https://github.com/eddymandran) | Bastien GIRARDIN-VINCENT [@ParadoxVie](https://github.com/ParadoxVie)  | Julien PELLATTIERO [@Pella0](https://github.com/Pella0)   | Simon MAINFROY [@SimonMfroy](https://github.com/SimonMfroy) 
     
 </div>
