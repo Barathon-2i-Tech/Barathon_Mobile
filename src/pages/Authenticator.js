@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Image, Pressable, Dimensions} from "react-native";
+import {StyleSheet, Text, View, Image, Pressable, Dimensions, ScrollView} from "react-native";
 import React, { useState } from "react";
 import Colors from "../constants/colors"
 import Login from "../components/Auth/Login";
@@ -17,7 +17,7 @@ export default function Authenticator() {
     }
 
     return (
-        <View>
+        <ScrollView>
             <View style={styles.LogoContainer}>
                 <Image style={styles.stretch} source={require('../../assets/image/svg.jpg')} />
             </View>
@@ -37,7 +37,7 @@ export default function Authenticator() {
 
             { !choiceForm ? <Login /> : <Register />}
             
-        </View>
+        </ScrollView>
     );
 }
 
@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
     Container : {
         flex: 0.5,
         flexDirection: 'row',
+        marginBottom : 50,
+        
     },
     Choice1 : {
         marginTop: 50,
@@ -99,6 +101,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     LogoContainer : {
+        marginTop : 100,
         justifyContent: 'center',
         alignItems: 'center',
     },

@@ -5,7 +5,7 @@ import Colors from "../../constants/colors";
 export default function Login() {
 
     const [email, setEmail] = useState('');
-    const [password, SetPassword] = useState('');
+    const [password, setPassword] = useState('');
 
     const addLogin = () => {
         console.log("Email : " + email + " password : " + password);
@@ -23,7 +23,7 @@ export default function Login() {
 
             <TextInput
                 style={styles.input}
-                onChangeText={SetPassword}
+                onChangeText={setPassword}
                 value={password}
                 placeholder="Mot de passe"
                 keyboardType="default"

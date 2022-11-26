@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Pressable, Platform, Dimensions} from "react-native";
+import {StyleSheet, Text, View, Pressable, Platform, Dimensions, TextInput} from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState } from "react";
 import Colors from "../../constants/colors";
@@ -10,6 +10,18 @@ export default function Register() {
     const [selectDate, setSelectDate] = useState(false);
     const [show, setShow] = useState(false);
     const [step, setStep] = useState(1);
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const [lastName, setLastName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [adresse, setAdresse] = useState('');
+    const [cp, setCp] = useState('');
+    const [ville, setVille] = useState('');
+
+
 
 
     const onChange = (event) => {
@@ -46,8 +58,13 @@ export default function Register() {
         setStep(step + 1);
     }
 
+    const addLogin = () => {
+        console.log("Email : " + email + " password : " + password);
+        setStep(step + 1);
+    }
+
     return (
-        <View>
+        <View >
             {
                 step == 1 &&
                 <>
@@ -75,6 +92,84 @@ export default function Register() {
 
                 <>
                     <Text style={styles.title}>Nous avons besoin que tu renseigne tes futurs identifiants de connexion</Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setEmail}
+                        value={email}
+                        placeholder="Email"
+                        keyboardType="default"
+                    />
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setPassword}
+                        value={password}
+                        placeholder="Mot de passe"
+                        keyboardType="default"
+                    />
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setConfirmPassword}
+                        value={confirmPassword}
+                        placeholder="Confirmer votre Mot de passe"
+                        keyboardType="default"
+                    />
+                    <Pressable onPress={addLogin} style={styles.valider}>
+                        <Text style={styles.buttonText}>Etape suivante</Text>
+                    </Pressable>
+                </>
+            }
+
+            {
+                step == 3 &&
+
+                <>
+                    <Text style={styles.title2}>Dernière étape !</Text>
+                    <Text style={styles.title}>Parle nous un peu de toi</Text>
+
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputFlex}
+                            onChangeText={setLastName}
+                            value={lastName}
+                            placeholder="Nom"
+                            keyboardType="default"
+                        />
+                        <TextInput
+                            style={styles.inputFlex}
+                            onChangeText={setFirstName}
+                            value={firstName}
+                            placeholder="Prenom"
+                            keyboardType="default"
+                        />
+                    </View>
+
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setAdresse}
+                        value={adresse}
+                        placeholder="N° et nom de ta rue"
+                        keyboardType="default"
+                    />
+
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setCp}
+                        value={cp}
+                        placeholder="Code Postal"
+                        keyboardType="numeric"
+                    />
+
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setVille}
+                        value={ville}
+                        placeholder="Ville"
+                        keyboardType="default"
+                    />
+
+                    <Pressable onPress={addLogin} style={styles.valider}>
+                        <Text style={styles.buttonText}>C&apos;est parti !</Text>
+                    </Pressable>
                 </>
             }
 
@@ -87,6 +182,27 @@ const width = Dimensions.get("window").width;
 //const height = Dimensions.get("window").height; //full height
 
 const styles = StyleSheet.create({
+    
+    inputContainer : {
+        flex : 1,
+        flexDirection: 'row',
+        justifyContent : "space-between",
+    },
+
+    inputFlex : {
+        backgroundColor : '#F0F0F0',
+        height : 50,
+        width : width / 2.5,
+        borderRadius : 5,
+        marginBottom: 30,
+    },
+
+    input : {
+        backgroundColor : '#F0F0F0',
+        height : 50,
+        borderRadius : 5,
+        marginBottom: 30,
+    },
 
     title : {
         fontWeight : "bold",
@@ -94,6 +210,13 @@ const styles = StyleSheet.create({
         textAlign : 'center',
         marginBottom : 40,
     },
+
+    title2 : {
+        fontWeight : "bold",
+        fontSize : 20,
+        textAlign : 'center',
+    },
+
     btnDate : {
         backgroundColor : Colors.primary,
         height : 40,
@@ -116,5 +239,6 @@ const styles = StyleSheet.create({
         marginLeft : 50,
         height : 40,
         borderRadius : 10,
-    }
+        marginBottom : 20,
+    },
 });
