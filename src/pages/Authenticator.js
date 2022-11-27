@@ -4,7 +4,7 @@ import Colors from "../constants/colors"
 import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Regiser";
 
-export default function Authenticator() {
+export default function Authenticator({navigation}) {
 
     const [choiceForm, setChoiceForm] = useState(false);
 
@@ -35,7 +35,7 @@ export default function Authenticator() {
                 </View>
             </View>
 
-            { !choiceForm ? <Login /> : <Register />}
+            { !choiceForm ? <Login navigation={navigation} /> : <Register />}
             
         </ScrollView>
     );

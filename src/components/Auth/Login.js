@@ -1,14 +1,43 @@
 import {StyleSheet, View, TextInput, Pressable, Text, Dimensions} from "react-native";
 import React, { useState } from "react";
 import Colors from "../../constants/colors";
+import Storage from "../../constants/localStorage";
+import Axios from "../../constants/axios";
 
-export default function Login() {
+export default function Login({ navigation }) {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const addLogin = () => {
-        console.log("Email : " + email + " password : " + password);
+
+
+    const addLogin = async () => {
+        let store = new Storage;
+
+        if(email == '' || password == ''){
+            alert("Veuillez remplire tout les champs !");
+        }else{
+            Axios.api.post("/login", {
+                email : email,
+                password : password
+            }, {
+                headers : {
+                    'Accept' : 'application/vnd.api+json',
+                    'Content-Type' : 'application/vnd.api+json'
+                }
+            }).then((response) => {
+                console.log("la response : ", response.data.data)
+                
+                if(response.data.data["user"]["barathonien_id"] != null){
+                    store.storeDataObject("user", response.data.data);
+                    navigation.navigate("Home");
+                }else{
+                    alert("Vous pouvez vous connecter sur l'application mobile qu'avec un compte barathonien !");
+                }
+            }).catch((e) => {
+                console.log(e)
+            })
+        }
     }
 
     return (
