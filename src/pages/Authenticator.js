@@ -17,7 +17,7 @@ export default function Authenticator() {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.mainContainer}>
             <View style={styles.LogoContainer}>
                 <Image style={styles.stretch} source={require('../../assets/image/svg.jpg')} />
             </View>
@@ -45,6 +45,11 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height; //full height
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        flex: 1,
+        backgroundColor: '#fff',
+
+    },
     text: {
         color: Colors.accent,
         alignItems: 'center',
@@ -53,6 +58,8 @@ const styles = StyleSheet.create({
         flex: 0.5,
         flexDirection: 'row',
         marginBottom : 50,
+        alignItems: 'center',
+        justifyContent: 'center',
         
     },
     Choice1 : {

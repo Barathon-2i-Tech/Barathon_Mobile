@@ -31,7 +31,7 @@ export default function Register() {
         if(event["nativeEvent"]["timestamp"] != undefined){
             setSelectDate(true);
             setDate(new Date(event["nativeEvent"]["timestamp"]));
-            console.log(date);
+            
         }
     };
 
@@ -54,17 +54,47 @@ export default function Register() {
     };
 
     const validerNaiss = () => {
-        console.log(date)
-        setStep(step + 1);
+
+        let age = Date.now() - date.getTime();
+        let age_dt = new Date(age);
+        let year = age_dt.getUTCFullYear();
+        age = Math.abs(year - 1970);
+
+        if(date.toString().substring(0, 10) == new Date().toString().substring(0, 10)){
+            alert("Veuillez saisir votre date de naissance !");
+        }else if(age < 18){
+            alert("Vous ne pouvez pas accéder à l'application en tant que mineur !")
+        }else{
+            setStep(step + 1);
+        }
+        
     }
 
     const addLogin = () => {
-        console.log("Email : " + email + " password : " + password);
-        setStep(step + 1);
+        let reg = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w\w+)+$/;
+        if(email == '' || password == '' || confirmPassword == ''){
+            alert("Veuillez saisir tous les champs du formulaire !")
+        }else if (reg.test(email) === false) {
+            alert("Veuillez saisir une adresse email valide !")
+        }else if(password.length < 8){
+            alert("Veuillez saisir un mot de passe supérieur à 8 caractères !")
+        }else if(password != confirmPassword){
+            alert("Veuillez saisir les deux mêmes mots de passe !")
+        }else{
+            setStep(step + 1);
+        }
+    }
+
+    const personnalInfo = () => {
+        if(lastName == '' || firstName == '' || adresse == '' || cp == '' || ville == ''){
+            alert("Veuillez saisir tous les champs du formulaire !")
+        }else if(cp.length < 5){
+            alert("Veuillez sasir un code postal valide");
+        }
     }
 
     return (
-        <View >
+        <View style={styles.mainContainer}>
             {
                 step == 1 &&
                 <>
@@ -97,7 +127,7 @@ export default function Register() {
                         onChangeText={setEmail}
                         value={email}
                         placeholder="Email"
-                        keyboardType="default"
+                        keyboardType="email-adress"
                     />
                     <TextInput
                         style={styles.input}
@@ -167,7 +197,7 @@ export default function Register() {
                         keyboardType="default"
                     />
 
-                    <Pressable onPress={addLogin} style={styles.valider}>
+                    <Pressable onPress={personnalInfo} style={styles.valider}>
                         <Text style={styles.buttonText}>C&apos;est parti !</Text>
                     </Pressable>
                 </>
@@ -182,6 +212,11 @@ const width = Dimensions.get("window").width;
 //const height = Dimensions.get("window").height; //full height
 
 const styles = StyleSheet.create({
+
+    mainContainer: {
+        width : width / 1.1,
+        marginLeft : width / 25,
+    },
     
     inputContainer : {
         flex : 1,

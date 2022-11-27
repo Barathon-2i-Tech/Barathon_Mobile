@@ -1,4 +1,4 @@
-import {StyleSheet, View, TextInput, Pressable, Text} from "react-native";
+import {StyleSheet, View, TextInput, Pressable, Text, Dimensions} from "react-native";
 import React, { useState } from "react";
 import Colors from "../../constants/colors";
 
@@ -12,7 +12,7 @@ export default function Login() {
     }
 
     return (
-        <View>
+        <View style={styles.mainContainer}>
             <TextInput
                 style={styles.input}
                 onChangeText={setEmail}
@@ -42,7 +42,13 @@ export default function Login() {
     );
 }
 
+const width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
+
+    mainContainer: {
+        width : width / 1.1,
+        marginLeft : width / 25,
+    },
     input : {
         backgroundColor : '#F0F0F0',
         height : 50,
