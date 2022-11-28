@@ -2,9 +2,10 @@ import {StyleSheet, Text, View, Pressable, Platform, Dimensions, TextInput} from
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState } from "react";
 import Colors from "../../constants/colors";
-//import Colors from "../constants/colors"
+import Axios from "../../constants/axios";
+import {storeDataObject} from "../../constants/localStorage";
 
-export default function Register() {
+export default function Register({ navigation }) {
 
     const [date, setDate] = useState(new Date());
     const [selectDate, setSelectDate] = useState(false);
@@ -90,6 +91,34 @@ export default function Register() {
             alert("Veuillez saisir tous les champs du formulaire !")
         }else if(cp.length < 5){
             alert("Veuillez sasir un code postal valide");
+        }else{
+            Axios.api.post("/register/barathonien", {
+                email : email,
+                password : password,
+                password_confirmation : confirmPassword,
+                first_name : firstName,
+                last_name : lastName,
+                birthday : date,
+                adress : adresse,
+                postal_code : cp,
+                city : ville,
+            }, {
+                headers : {
+                    'Accept' : 'application/vnd.api+json',
+                    'Content-Type' : 'application/vnd.api+json'
+                }
+            }).then((response) => {
+                console.log("la response : ", response.data.data)
+                
+                if(response.data.data["user"]["barathonien_id"] != null){
+                    storeDataObject("user", response.data.data);
+                    navigation.navigate("Home");
+                }else{
+                    alert("Vous pouvez vous connecter sur l'application mobile qu'avec un compte barathonien !");
+                }
+            }).catch((e) => {
+                console.log(e)
+            })
         }
     }
 

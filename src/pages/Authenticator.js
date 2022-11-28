@@ -35,7 +35,7 @@ export default function Authenticator({navigation}) {
                 </View>
             </View>
 
-            { !choiceForm ? <Login navigation={navigation} /> : <Register />}
+            { !choiceForm ? <Login navigation={navigation} /> : <Register navigation={navigation} />}
             
         </ScrollView>
     );
