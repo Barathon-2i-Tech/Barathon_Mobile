@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {StyleSheet, Text, View, Pressable, Platform, Dimensions, TextInput} from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import React, { useState } from "react";

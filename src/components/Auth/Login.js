@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {StyleSheet, View, TextInput, Pressable, Text, Dimensions} from "react-native";
 import React, { useState } from "react";
 import Colors from "../../constants/colors";

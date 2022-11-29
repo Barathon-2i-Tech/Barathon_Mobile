@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-undef */
 import {StyleSheet, Text, View, Image, Pressable, Dimensions, ScrollView} from "react-native";
 import React, { useState } from "react";
 import Colors from "../constants/colors"
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     LogoContainer : {
-        marginTop : 100,
+        marginTop : 50,
         justifyContent: 'center',
         alignItems: 'center',
     },
