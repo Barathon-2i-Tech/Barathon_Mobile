@@ -1,127 +1,145 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
-import {StyleSheet, Text, View, Image, Pressable, Dimensions, ScrollView} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  Dimensions,
+  ScrollView,
+} from "react-native";
 import React, { useState } from "react";
-import Colors from "../constants/colors"
+import Colors from "../constants/colors";
 import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Regiser";
 
-export default function Authenticator({navigation}) {
+export default function Authenticator({ navigation }) {
+  const [choiceForm, setChoiceForm] = useState(false);
 
-    const [choiceForm, setChoiceForm] = useState(false);
-
-    const handleForm = () => {
-        if(!choiceForm){
-            setChoiceForm(true);
-        }else{
-            setChoiceForm(false);
-        }
+  const handleForm = () => {
+    if (!choiceForm) {
+      setChoiceForm(true);
+    } else {
+      setChoiceForm(false);
     }
+  };
 
-    return (
-        <ScrollView style={styles.mainContainer}>
-            <View style={styles.LogoContainer}>
-                <Image style={styles.stretch} source={require('../../assets/image/svg.jpg')} />
-            </View>
-            
-            <View style={styles.Container}>
-                <View style={styles.Choice1}>
-                    <Pressable onPress={handleForm} style={choiceForm ? styles.UnSelec : styles.Selec}>
-                        <Text style={choiceForm ? styles.UnSelecText : styles.SelecText}>Connexion</Text>
-                    </Pressable>
-                </View>
-                <View style={styles.Choice2}>
-                    <Pressable onPress={handleForm} style={!choiceForm ? styles.UnSelec : styles.Selec}>
-                        <Text style={!choiceForm ? styles.UnSelecText : styles.SelecText}>Inscription</Text>
-                    </Pressable>
-                </View>
-            </View>
+  return (
+    <ScrollView style={styles.mainContainer}>
+      <View style={styles.logoContainer}>
+        <Image
+          style={styles.stretch}
+          source={require("../../assets/image/svg.jpg")}
+        />
+      </View>
 
-            { !choiceForm ? <Login navigation={navigation} /> : <Register navigation={navigation} />}
-            
-        </ScrollView>
-    );
+      <View style={styles.container}>
+        <View style={styles.choice1}>
+          <Pressable
+            onPress={handleForm}
+            style={choiceForm ? styles.unSelec : styles.selec}
+          >
+            <Text style={choiceForm ? styles.unSelecText : styles.selecText}>
+              Connexion
+            </Text>
+          </Pressable>
+        </View>
+        <View style={styles.choice2}>
+          <Pressable
+            onPress={handleForm}
+            style={!choiceForm ? styles.unSelec : styles.selec}
+          >
+            <Text style={!choiceForm ? styles.unSelecText : styles.selecText}>
+              Inscription
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+
+      {!choiceForm ? (
+        <Login navigation={navigation} />
+      ) : (
+        <Register navigation={navigation} />
+      )}
+    </ScrollView>
+  );
 }
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height; //full height
 
 const styles = StyleSheet.create({
-    mainContainer: {
-        flex: 1,
-        backgroundColor: '#fff',
-
-    },
-    text: {
-        color: Colors.accent,
-        alignItems: 'center',
-    },
-    Container : {
-        flex: 0.5,
-        flexDirection: 'row',
-        marginBottom : 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        
-    },
-    Choice1 : {
-        marginTop: 50,
-        height: height / 23,
-        width: width /2.2,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#DFDDDD',
-        borderTopLeftRadius : 5,
-        borderBottomLeftRadius: 5
-    },
-    Choice2 : {
-        marginTop: 50,
-        height: height / 23,
-        width: width /2.2,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#DFDDDD',
-        borderTopRightRadius: 5,
-        borderBottomRightRadius: 5
-    },
-    Selec : {
-        backgroundColor: 'white',
-        height : '90%',
-        width: '97%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-        
-
-    },
-    SelecText : {
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    UnSelec : {
-        backgroundColor: '#DFDDDD',
-        height : '90%',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 5,
-    },
-    UnSelecText : {
-        textAlign: 'center',
-        fontWeight: 'bold',
-    },
-    LogoContainer : {
-        marginTop : 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    stretch: {
-        width: 150,
-        height: 150,
-        resizeMode: 'stretch',
-
-    },
-    footerText : {
-        marginTop : 20,
-        fontSize  :15,
-    }
+  mainContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  text: {
+    color: Colors.accent,
+    alignItems: "center",
+  },
+  container: {
+    flex: 0.5,
+    flexDirection: "row",
+    marginBottom: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  choice1: {
+    marginTop: 50,
+    height: height / 23,
+    width: width / 2.2,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#DFDDDD",
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+  },
+  choice2: {
+    marginTop: 50,
+    height: height / 23,
+    width: width / 2.2,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#DFDDDD",
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+  },
+  selec: {
+    backgroundColor: "white",
+    height: "90%",
+    width: "97%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  selecText: {
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  unSelec: {
+    backgroundColor: "#DFDDDD",
+    height: "90%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+  unSelecText: {
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  logoContainer: {
+    marginTop: 50,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  stretch: {
+    width: 150,
+    height: 150,
+    resizeMode: "stretch",
+  },
+  footerText: {
+    marginTop: 20,
+    fontSize: 15,
+  },
 });
