@@ -13,6 +13,8 @@ import React, { useState } from "react";
 import Colors from "../../constants/colors";
 import Axios from "../../constants/axios";
 import { storeDataObject } from "../../constants/localStorage";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
 export default function Register({ navigation }) {
   const [date, setDate] = useState(new Date());
@@ -23,12 +25,6 @@ export default function Register({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-  const [lastName, setLastName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [adresse, setAdresse] = useState("");
-  const [cp, setCp] = useState("");
-  const [ville, setVille] = useState("");
 
   const onChange = (event) => {
     setShow(false);
@@ -54,7 +50,7 @@ export default function Register({ navigation }) {
     }
   };
 
-  const validerNaiss = () => {
+  const checkBirth = () => {
     let age = Date.now() - date.getTime();
     let age_dt = new Date(age);
     let year = age_dt.getUTCFullYear();
@@ -71,71 +67,80 @@ export default function Register({ navigation }) {
     }
   };
 
-  const addLogin = () => {
-    let reg = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w\w+)+$/;
-    if (email == "" || password == "" || confirmPassword == "") {
-      alert("Veuillez saisir tous les champs du formulaire !");
-    } else if (reg.test(email) === false) {
-      alert("Veuillez saisir une adresse email valide !");
-    } else if (password.length < 8) {
-      alert("Veuillez saisir un mot de passe supérieur à 8 caractères !");
-    } else if (password != confirmPassword) {
-      alert("Veuillez saisir les deux mêmes mots de passe !");
-    } else {
-      setStep(step + 1);
-    }
+  const login = (values) => {
+    setEmail(values.email);
+    setPassword(values.password);
+    setConfirmPassword(values.confirmPassword);
+    setStep(step + 1);
   };
 
-  const personnalInfo = () => {
-    if (
-      lastName == "" ||
-      firstName == "" ||
-      adresse == "" ||
-      cp == "" ||
-      ville == ""
-    ) {
-      alert("Veuillez saisir tous les champs du formulaire !");
-    } else if (cp.length < 5) {
-      alert("Veuillez sasir un code postal valide");
-    } else {
-      Axios.api
-        .post(
-          "/register/barathonien",
-          {
-            email: email,
-            password: password,
-            password_confirmation: confirmPassword,
-            first_name: firstName,
-            last_name: lastName,
-            birthday: date,
-            adress: adresse,
-            postal_code: cp,
-            city: ville,
+  const personnalInfo = (values) => {
+    console.log(values.postal_code)
+    console.log(email)
+    console.log(password)
+    console.log(confirmPassword)
+    console.log(date)
+    Axios.api
+      .post(
+        "/register/barathonien",
+        {
+          email: email,
+          password: password,
+          password_confirmation: confirmPassword,
+          first_name: values.first_name,
+          last_name: values.last_name,
+          birthday: date,
+          adress: values.adress,
+          postal_code: values.postal_code,
+          city: values.city,
+        },
+        {
+          headers: {
+            "Accept": "application/vnd.api+json",
+            "Content-Type": "application/vnd.api+json",
           },
-          {
-            headers: {
-              Accept: "application/vnd.api+json",
-              "Content-Type": "application/vnd.api+json",
-            },
-          }
-        )
-        .then((response) => {
-          console.log("la response : ", response.data.data);
+        }
+      )
+      .then((response) => {
+        console.log("la response : ", response.data.data);
 
-          if (response.data.data["user"]["barathonien_id"] != null) {
-            storeDataObject("user", response.data.data);
-            navigation.navigate("Home");
-          } else {
-            alert(
-              "Vous pouvez vous connecter sur l'application mobile qu'avec un compte barathonien !"
-            );
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }
+        if (response.data.data["user"]["barathonien_id"] != null) {
+          storeDataObject("user", response.data.data);
+          navigation.navigate("Home");
+        } else {
+          alert(
+            "Vous pouvez vous connecter sur l'application mobile qu'avec un compte barathonien !"
+          );
+        }
+      })
+      .catch((e) => {
+        console.log(e.toJSON());
+      });
   };
+
+  const SignupSchema = Yup.object().shape({
+    email: Yup.string()
+      .required("Veuillez saisir votre email")
+      .email("Veuillez saisir une adresse email"),
+    password: Yup.string()
+      .min(8, "Trop court! >8")
+      .required("Veuillez saisir votre mot de passe"),
+    confirmPassword: Yup.string().oneOf(
+      [Yup.ref("password"), null],
+      "Passwords must match"
+    ),
+  });
+
+  const SignupSchema2 = Yup.object().shape({
+    last_name: Yup.string().required("Veuillez saisir votre nom"),
+    first_name: Yup.string().required("Veuillez saisir votre prénom"),
+    adress: Yup.string().required("Veuillez saisir votre adresse"),
+    postal_code: Yup.string()
+      .min(5, "Trop court! = 5")
+      .max(5, "Trop long! = 5")
+      .required("Veuillez saisir votre code postal"),
+    city: Yup.string().required("Veuillez saisir votre adresse"),
+  });
 
   return (
     <View style={styles.mainContainer}>
@@ -151,7 +156,7 @@ export default function Register({ navigation }) {
               <Text style={styles.buttonText}>{date.toDateString()}</Text>
             )}
           </Pressable>
-          <Pressable style={styles.valider} onPress={validerNaiss}>
+          <Pressable style={styles.valider} onPress={checkBirth}>
             <Text style={styles.buttonText}>Verifier</Text>
           </Pressable>
           {show && (
@@ -168,86 +173,159 @@ export default function Register({ navigation }) {
 
       {step == 2 && (
         <>
-          <Text style={styles.title}>
-            Nous avons besoin que tu renseigne tes futurs identifiants de
-            connexion
-          </Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Email"
-            keyboardType="email-adress"
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={setPassword}
-            value={password}
-            placeholder="Mot de passe"
-            keyboardType="default"
-          />
-          <TextInput
-            style={styles.input}
-            onChangeText={setConfirmPassword}
-            value={confirmPassword}
-            placeholder="Confirmer votre Mot de passe"
-            keyboardType="default"
-          />
-          <Pressable onPress={addLogin} style={styles.valider}>
-            <Text style={styles.buttonText}>Etape suivante</Text>
-          </Pressable>
+          <Formik
+            initialValues={{ email: "", password: "", confirmPassword: "" }}
+            validationSchema={SignupSchema}
+            onSubmit={(values) => login(values)}
+          >
+            {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+              <>
+                <Text style={styles.title}>
+                  Nous avons besoin que tu renseigne tes futurs identifiants de
+                  connexion
+                </Text>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  value={values.email}
+                  placeholder="Email"
+                  keyboardType="email-adress"
+                />
+                {errors.email && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                    {errors.email}
+                  </Text>
+                )}
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={values.password}
+                  placeholder="Mot de passe"
+                  keyboardType="default"
+                />
+                {errors.password && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                    {errors.password}
+                  </Text>
+                )}
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange("confirmPassword")}
+                  onBlur={handleBlur("confirmPassword")}
+                  value={values.confirmPassword}
+                  placeholder="Confirmer votre Mot de passe"
+                  keyboardType="default"
+                />
+                {errors.confirmPassword && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                    {errors.confirmPassword}
+                  </Text>
+                )}
+                <Pressable onPress={handleSubmit} style={styles.valider}>
+                  <Text style={styles.buttonText}>Etape suivante</Text>
+                </Pressable>
+              </>
+            )}
+          </Formik>
         </>
       )}
 
       {step == 3 && (
         <>
-          <Text style={styles.title2}>Dernière étape !</Text>
-          <Text style={styles.title}>Parle nous un peu de toi</Text>
+          <Formik
+            initialValues={{
+              last_name: "",
+              first_name: "",
+              adress: "",
+              code_postal: "",
+              city: "",
+            }}
+            validationSchema={SignupSchema2}
+            onSubmit={(values) => personnalInfo(values)}
+          >
+            {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+              <>
+                <Text style={styles.title2}>Dernière étape !</Text>
+                <Text style={styles.title}>Parle nous un peu de toi</Text>
 
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.inputFlex}
-              onChangeText={setLastName}
-              value={lastName}
-              placeholder="Nom"
-              keyboardType="default"
-            />
-            <TextInput
-              style={styles.inputFlex}
-              onChangeText={setFirstName}
-              value={firstName}
-              placeholder="Prenom"
-              keyboardType="default"
-            />
-          </View>
+                <View style={styles.inputContainer}>
+                  <TextInput
+                    style={styles.inputFlex}
+                    onChangeText={handleChange("last_name")}
+                    onBlur={handleBlur("last_name")}
+                    value={values.last_name}
+                    placeholder="Nom"
+                    keyboardType="default"
+                  />
 
-          <TextInput
-            style={styles.input}
-            onChangeText={setAdresse}
-            value={adresse}
-            placeholder="N° et nom de ta rue"
-            keyboardType="default"
-          />
-
-          <TextInput
-            style={styles.input}
-            onChangeText={setCp}
-            value={cp}
-            placeholder="Code Postal"
-            keyboardType="numeric"
-          />
-
-          <TextInput
-            style={styles.input}
-            onChangeText={setVille}
-            value={ville}
-            placeholder="Ville"
-            keyboardType="default"
-          />
-
-          <Pressable onPress={personnalInfo} style={styles.valider}>
-            <Text style={styles.buttonText}>C&apos;est parti !</Text>
-          </Pressable>
+                  <TextInput
+                    style={styles.inputFlex}
+                    onChangeText={handleChange("first_name")}
+                    onBlur={handleBlur("first_name")}
+                    value={values.first_name}
+                    placeholder="Prenom"
+                    keyboardType="default"
+                  />
+                </View>
+                <View style={styles.inputContainer}>
+                  {errors.last_name && (
+                    <Text style={{ fontSize: 10, color: "red" }}>
+                      {errors.last_name}
+                    </Text>
+                  )}
+                  {errors.first_name && (
+                    <Text style={{ fontSize: 10, color: "red" }}>
+                      {errors.first_name}
+                    </Text>
+                  )}
+                </View>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange("adress")}
+                  onBlur={handleBlur("adress")}
+                  value={values.adress}
+                  placeholder="N° et nom de ta rue"
+                  keyboardType="default"
+                />
+                {errors.adress && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                    {errors.adress}
+                  </Text>
+                )}
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange("postal_code")}
+                  onBlur={handleBlur("postal_code")}
+                  value={values.postal_code}
+                  placeholder="Code Postal"
+                  keyboardType="numeric"
+                />
+                {errors.postal_code && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                    {errors.postal_code}
+                  </Text>
+                )}
+                <TextInput
+                  style={styles.input}
+                  onChangeText={handleChange("city")}
+                  onBlur={handleBlur("city")}
+                  value={values.city}
+                  placeholder="Ville"
+                  keyboardType="default"
+                />
+                {errors.city && (
+                  <Text style={{ fontSize: 10, color: "red" }}>
+                    {errors.city}
+                  </Text>
+                )}
+                <Pressable onPress={handleSubmit} style={styles.valider}>
+                  <Text style={styles.buttonText}>C&apos;est parti !</Text>
+                </Pressable>
+              </>
+            )}
+          </Formik>
         </>
       )}
     </View>
@@ -274,21 +352,23 @@ const styles = StyleSheet.create({
     height: 50,
     width: width / 2.5,
     borderRadius: 5,
-    marginBottom: 30,
+    marginTop: 30,
+    paddingLeft: 15,
   },
 
   input: {
     backgroundColor: "#F0F0F0",
     height: 50,
     borderRadius: 5,
-    marginBottom: 30,
+    marginTop: 30,
+    paddingLeft: 15,
   },
 
   title: {
     fontWeight: "bold",
     fontSize: 20,
     textAlign: "center",
-    marginBottom: 40,
+    marginBottom: 15,
   },
 
   title2: {

@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 0.5,
     flexDirection: "row",
-    marginBottom: 50,
+    marginBottom: 20,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   stretch: {
-    width: 150,
+    width: 160,
     height: 150,
     resizeMode: "stretch",
   },
