@@ -16,6 +16,7 @@ import * as Yup from "yup";
 
 export default function Login({ navigation }) {
 
+  // login fonction : get mail and password of user and check login method api for accept or not the login and redirect to Home when it's ok
   const login = async (values) => {
 
     Axios.api
@@ -33,9 +34,9 @@ export default function Login({ navigation }) {
         }
       )
       .then((response) => {
-        console.log("la response : ", response.data.data);
 
         if (response.data.data["user"]["barathonien_id"] != null) {
+          //Use LocalStorage in React Native
           storeDataObject("user", response.data.data);
           navigation.navigate("HomeStack");
         } else {
@@ -50,6 +51,7 @@ export default function Login({ navigation }) {
       });
   };
 
+  //Schema for check the validity of the data entered
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
       .required("Veuillez saisir votre email")

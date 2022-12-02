@@ -17,6 +17,7 @@ import Register from "../components/Auth/Regiser";
 export default function Authenticator({ navigation }) {
   const [choiceForm, setChoiceForm] = useState(false);
 
+  //Change form between login and register
   const handleForm = () => {
     if (!choiceForm) {
       setChoiceForm(true);

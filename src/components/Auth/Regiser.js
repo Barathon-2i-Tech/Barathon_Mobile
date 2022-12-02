@@ -26,6 +26,7 @@ export default function Register({ navigation }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  //this method is executed when a date is chosen
   const onChange = (event) => {
     setShow(false);
 
@@ -42,6 +43,7 @@ export default function Register({ navigation }) {
     }
   };
 
+  //Open or Close the dataPicker
   const showDatepicker = () => {
     if (show == false) {
       setShow(true);
@@ -50,6 +52,7 @@ export default function Register({ navigation }) {
     }
   };
 
+  //when the birth's date is chosen, check if the user is is an adult
   const checkBirth = () => {
     let age = Date.now() - date.getTime();
     let age_dt = new Date(age);
@@ -67,6 +70,7 @@ export default function Register({ navigation }) {
     }
   };
 
+  // Save login information after validation
   const login = (values) => {
     setEmail(values.email);
     setPassword(values.password);
@@ -74,12 +78,8 @@ export default function Register({ navigation }) {
     setStep(step + 1);
   };
 
+  // get personnal info after validation and create the barathonien with the api method /register/barathonien redirect to home after the registration
   const personnalInfo = (values) => {
-    console.log(values.postal_code)
-    console.log(email)
-    console.log(password)
-    console.log(confirmPassword)
-    console.log(date)
     Axios.api
       .post(
         "/register/barathonien",
@@ -102,22 +102,15 @@ export default function Register({ navigation }) {
         }
       )
       .then((response) => {
-        console.log("la response : ", response.data.data);
-
-        if (response.data.data["user"]["barathonien_id"] != null) {
-          storeDataObject("user", response.data.data);
-          navigation.navigate("HomeStack");
-        } else {
-          alert(
-            "Vous pouvez vous connecter sur l'application mobile qu'avec un compte barathonien !"
-          );
-        }
+        storeDataObject("user", response.data.data);
+        navigation.navigate("HomeStack");
       })
       .catch((e) => {
         console.log(e.toJSON());
       });
   };
 
+  //Schemas for check the validity of the data entered
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
       .required("Veuillez saisir votre email")

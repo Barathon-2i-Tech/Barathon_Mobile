@@ -9,7 +9,6 @@ export default function Home() {
   async function updateScore() {
     getDataObject("user").then((res) => {
       setUser(res);
-      console.log("test : ", res.user.first_name);
       setLoad(true);
     });
   }
