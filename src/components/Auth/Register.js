@@ -129,7 +129,7 @@ export default function Register({ navigation }) {
     adress: Yup.string().required("Saisie ton adresse"),
     postal_code: Yup.string()
       .min(5, "Code postal trop court!")
-      .max(5, "Code postal trop!")
+      .max(5, "Code postal trop long!")
       .required("Saisie ton code postal"),
     city: Yup.string().required("Saisie ton adresse"),
   });
