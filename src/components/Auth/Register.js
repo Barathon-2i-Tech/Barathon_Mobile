@@ -15,6 +15,7 @@ import Axios from "../../constants/axios";
 import { storeDataObject } from "../../constants/localStorage";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import moment from 'moment';
 
 export default function Register({ navigation }) {
   const [date, setDate] = useState(new Date());
@@ -52,19 +53,17 @@ export default function Register({ navigation }) {
     }
   };
 
-  //when the birth's date is chosen, check if the user is is an adult
+  //when the birth's date is chosen, check if the user is an adult
   const checkBirth = () => {
-    let age = Date.now() - date.getTime();
-    let age_dt = new Date(age);
-    let year = age_dt.getUTCFullYear();
-    age = Math.abs(year - 1970);
+    
+    const age = moment().diff(date, 'years');
 
     if (
       date.toString().substring(0, 10) == new Date().toString().substring(0, 10)
     ) {
-      alert("Veuillez saisir votre date de naissance !");
+      alert("Saisie ta date de naissance !");
     } else if (age < 18) {
-      alert("Vous ne pouvez pas accéder à l'application en tant que mineur !");
+      alert("Tu ne peux pas accéder à l'application en tant que mineur !");
     } else {
       setStep(step + 1);
     }
@@ -84,7 +83,7 @@ export default function Register({ navigation }) {
       .post(
         "/register/barathonien",
         {
-          email: email,
+          email: email.toLowerCase(),
           password: password,
           password_confirmation: confirmPassword,
           first_name: values.first_name,
@@ -113,26 +112,26 @@ export default function Register({ navigation }) {
   //Schemas for check the validity of the data entered
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
-      .required("Veuillez saisir votre email")
-      .email("Veuillez saisir une adresse email"),
+      .required("Saisie ton email")
+      .email("Saisie une adresse email"),
     password: Yup.string()
-      .min(8, "Trop court! >8")
-      .required("Veuillez saisir votre mot de passe"),
+      .min(8, "Mot de passe trop court! >8")
+      .required("Saisie ton mot de passe"),
     confirmPassword: Yup.string().oneOf(
       [Yup.ref("password"), null],
-      "Passwords must match"
+      "les mots de passe doivent être identiques"
     ),
   });
 
   const SignupSchema2 = Yup.object().shape({
-    last_name: Yup.string().required("Veuillez saisir votre nom"),
-    first_name: Yup.string().required("Veuillez saisir votre prénom"),
-    adress: Yup.string().required("Veuillez saisir votre adresse"),
+    last_name: Yup.string().required("Saisie ton nom"),
+    first_name: Yup.string().required("Saisie ton prénom"),
+    adress: Yup.string().required("Saisie ton adresse"),
     postal_code: Yup.string()
-      .min(5, "Trop court! = 5")
-      .max(5, "Trop long! = 5")
-      .required("Veuillez saisir votre code postal"),
-    city: Yup.string().required("Veuillez saisir votre adresse"),
+      .min(5, "Code postal trop court!")
+      .max(5, "Code postal trop!")
+      .required("Saisie ton code postal"),
+    city: Yup.string().required("Saisie ton adresse"),
   });
 
   return (
@@ -146,7 +145,7 @@ export default function Register({ navigation }) {
             {!selectDate ? (
               <Text style={styles.buttonText}>saisir ta date de naissance</Text>
             ) : (
-              <Text style={styles.buttonText}>{date.toDateString()}</Text>
+              <Text style={styles.buttonText}>{moment(date).format('DD/MM/YYYY')}</Text>
             )}
           </Pressable>
           <Pressable style={styles.valider} onPress={checkBirth}>
@@ -378,6 +377,7 @@ const styles = StyleSheet.create({
     width: width / 1.5,
     alignItems: "center",
     marginLeft: 50,
+    borderRadius: 5,
   },
 
   buttonText: {

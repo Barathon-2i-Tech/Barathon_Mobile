@@ -23,7 +23,7 @@ export default function Login({ navigation }) {
       .post(
         "/login",
         {
-          email: values.email,
+          email: values.email.toLowerCase(),
           password: values.password,
         },
         {
@@ -41,7 +41,7 @@ export default function Login({ navigation }) {
           navigation.navigate("HomeStack");
         } else {
           alert(
-            "Vous pouvez vous connecter sur l'application mobile qu'avec un compte barathonien !"
+            "Tu peux te connecter sur l'application mobile qu'avec un compte barathonien !"
           );
         }
       })
@@ -54,9 +54,9 @@ export default function Login({ navigation }) {
   //Schema for check the validity of the data entered
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
-      .required("Veuillez saisir votre email")
-      .email("Veuillez saisir une adresse email"),
-    password: Yup.string().min(8, "Trop court! >8").required("Veuillez saisir votre mot de passe"),
+      .required("Saisie ton email")
+      .email("Saisie une adresse email"),
+    password: Yup.string().min(8, "Mot de passe trop court! >8").required("Saisie ton mot de passe"),
   });
 
   return (

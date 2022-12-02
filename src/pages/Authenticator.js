@@ -12,7 +12,7 @@ import {
 import React, { useState } from "react";
 import Colors from "../constants/colors";
 import Login from "../components/Auth/Login";
-import Register from "../components/Auth/Regiser";
+import Register from "../components/Auth/Register";
 
 export default function Authenticator({ navigation }) {
   const [choiceForm, setChoiceForm] = useState(false);
