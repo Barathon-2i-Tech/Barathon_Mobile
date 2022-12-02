@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, ScrollView } from "react-native";
 import Colors from "../constants/colors";
 import { getDataObject } from "../constants/localStorage";
 import React, { useEffect, useState } from "react";
@@ -18,13 +18,13 @@ export default function Home() {
   }, []);
 
   return (
-    <View>
+    <ScrollView>
       {load == true && (
         <>
           <Text style={styles.text}>Bonjour, {user.user.first_name}</Text>
         </>
       )}
-    </View>
+    </ScrollView>
   );
 }
 
