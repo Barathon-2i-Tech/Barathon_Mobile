@@ -22,8 +22,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Auth" component={Authenticator} />
-        <Stack.Screen name="Home" component={HomeTabs} />
+        <Stack.Screen options={{headerShown: false}} name="Auth" component={Authenticator} />
+        <Stack.Screen name="HomeStack" component={HomeTabs} />
       </Stack.Navigator>
     </NavigationContainer>
   );

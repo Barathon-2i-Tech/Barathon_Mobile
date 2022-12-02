@@ -30,7 +30,7 @@ export default function Authenticator({ navigation }) {
       <View style={styles.logoContainer}>
         <Image
           style={styles.stretch}
-          source={require("../../assets/image/svg.jpg")}
+          source={require("../../assets/image/logo.jpg")}
         />
       </View>
 
@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     flex: 0.5,
     flexDirection: "row",
     marginBottom: 20,
+    marginTop : 30,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -129,13 +130,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   logoContainer: {
-    marginTop: 50,
+    marginTop: 130,
     justifyContent: "center",
     alignItems: "center",
   },
   stretch: {
-    width: 160,
-    height: 150,
+    width: 170,
+    height: 160,
     resizeMode: "stretch",
   },
   footerText: {

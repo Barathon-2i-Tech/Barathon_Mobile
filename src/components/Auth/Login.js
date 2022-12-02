@@ -15,8 +15,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 export default function Login({ navigation }) {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
 
   const login = async (values) => {
 
@@ -39,7 +37,7 @@ export default function Login({ navigation }) {
 
         if (response.data.data["user"]["barathonien_id"] != null) {
           storeDataObject("user", response.data.data);
-          navigation.navigate("Home");
+          navigation.navigate("HomeStack");
         } else {
           alert(
             "Vous pouvez vous connecter sur l'application mobile qu'avec un compte barathonien !"
@@ -87,6 +85,7 @@ export default function Login({ navigation }) {
             value={values.password}
             placeholder="Mot de passe"
             keyboardType="default"
+            secureTextEntry={true} 
           />
 
           {errors.password && (

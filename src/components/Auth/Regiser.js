@@ -106,7 +106,7 @@ export default function Register({ navigation }) {
 
         if (response.data.data["user"]["barathonien_id"] != null) {
           storeDataObject("user", response.data.data);
-          navigation.navigate("Home");
+          navigation.navigate("HomeStack");
         } else {
           alert(
             "Vous pouvez vous connecter sur l'application mobile qu'avec un compte barathonien !"
@@ -204,6 +204,7 @@ export default function Register({ navigation }) {
                   value={values.password}
                   placeholder="Mot de passe"
                   keyboardType="default"
+                  secureTextEntry={true} 
                 />
                 {errors.password && (
                   <Text style={{ fontSize: 10, color: "red" }}>
@@ -217,6 +218,7 @@ export default function Register({ navigation }) {
                   value={values.confirmPassword}
                   placeholder="Confirmer votre Mot de passe"
                   keyboardType="default"
+                  secureTextEntry={true} 
                 />
                 {errors.confirmPassword && (
                   <Text style={{ fontSize: 10, color: "red" }}>
