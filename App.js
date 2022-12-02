@@ -1,25 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Example from './src/components/Example';
+import {} from "expo-status-bar";
+import {} from "react-native";
+import Authenticator from "./src/pages/Authenticator";
+import Home from "./src/pages/Home";
+import { NavigationContainer } from "@react-navigation/native";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-
-
-export default function App() {
+function HomeTabs() {
+  const Tab = createMaterialBottomTabNavigator();
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-      <Example />
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="Home" component={Home} />
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  const Stack = createNativeStackNavigator();
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen options={{headerShown: false}} name="Auth" component={Authenticator} />
+        <Stack.Screen name="HomeStack" component={HomeTabs} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
