@@ -1,27 +1,48 @@
-import { StyleSheet, Text, ScrollView } from "react-native";
+import { StyleSheet, Text, ScrollView, View } from "react-native";
 import Colors from "../constants/colors";
 import { getDataObject } from "../constants/localStorage";
 import React, { useEffect, useState } from "react";
+import Header from "../components/Home/Header";
+import Carousel from "../components/Home/Carousel";
+import Axios from "../constants/axios";
 
 export default function Home() {
   const [user, setUser] = useState({});
+  const [events, setEvents] = useState({});
   const [load, setLoad] = useState(false);
-  async function updateScore() {
+  async function setDatas() {
     getDataObject("user").then((res) => {
+      console.log("woulal le res : " + res.user.user_id);
       setUser(res);
-      setLoad(true);
+      Axios.api
+        .get("/barathonien/" + res.user.user_id + "/city/event", {
+          headers: {
+            Authorization: "Bearer " + res.token,
+          },
+        })
+        .then((response) => {
+          console.log(response.data.data.event);
+          setEvents(response.data.data.event);
+          setLoad(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     });
   }
 
   useEffect(() => {
-    updateScore();
+    setDatas();
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.container}>
       {load == true && (
         <>
-          <Text style={styles.text}>Bonjour, {user.user.first_name}</Text>
+          <Header user={user}></Header>
+          <Text style={styles.title}>Quoi de neuf dans ta ville ?</Text>
+          <Carousel></Carousel>
+          <Text style={styles.title}>Découvrir</Text>
         </>
       )}
     </ScrollView>
@@ -29,8 +50,14 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
-  text: {
-    color: Colors.accent,
-    alignItems: "center",
+  container: {
+    marginLeft : 10,
+  },
+
+  title: {
+    marginTop : 30,
+    color: 'black',
+    fontWeight: "bold",
+    fontSize : 20,
   },
 });
