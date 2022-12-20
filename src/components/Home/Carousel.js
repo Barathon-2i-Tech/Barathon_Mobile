@@ -1,30 +1,28 @@
-import { StyleSheet, Text, View, FlatList, Animated } from "react-native";
-import Colors from "../../constants/colors";
+/* eslint-disable react/prop-types */
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Animated,
+  ImageBackground,
+} from "react-native";
 import React, { useState } from "react";
+import moment from 'moment-timezone';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function Carousel() {
+
+
+
+export default function Carousel({ DATA }) {
   const [scrollViewWidth, setScrollViewWidth] = useState(0);
   const boxWidth = scrollViewWidth * 0.8;
   const boxDistance = scrollViewWidth - boxWidth;
   const halfBoxDistance = boxDistance / 2;
   const pan = React.useRef(new Animated.ValueXY()).current;
 
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-  ];
 
-  
+
   const renderItem = ({ item, index }) => (
     <Animated.View
       style={{
@@ -36,36 +34,42 @@ export default function Carousel() {
                 index * boxWidth - halfBoxDistance,
                 (index + 1) * boxWidth - halfBoxDistance, // adjust positioning
               ],
-              outputRange: [0.8, 1, 0.8], // scale down when out of scope
-              extrapolate: 'clamp',
+              outputRange: [0.95, 1, 0.95], // scale down when out of scope
+              extrapolate: "clamp",
             }),
           },
         ],
-      }}>
+      }}
+    >
       <View
-        style={
-          {
-            height: '100%',
-            width: boxWidth,
-            borderRadius: 24,
-            backgroundColor: `rgba(${(index * 13) % 255}, ${
-              (index * 35) % 255
-            }, ${(index * 4) % 255}, .5)`,
-          }
-        }>
-        <Text>{item.title}</Text>
+        style={{
+          height: "100%",
+          width: boxWidth,
+          borderRadius: 20,
+          overflow: 'hidden',
+
+        }}
+      >
+        <ImageBackground source={{ uri: item.poster }} resizeMode="cover" style={styles.image}>
+          <Text style={styles.date}>{moment(item.start_event).tz('Europe/Paris').format('dddd MMM YY, HH') + 'H'}</Text>
+          <Text style={styles.title}>{item.event_name}</Text>
+          <View style={styles.infoContainer}>
+            <Ionicons name="pricetag" size={15} color="#DDDDDD" iconStyle={{marginTop : 10}} />
+            <Text style={styles.info}>{item.price} €</Text>
+          </View>
+
+        </ImageBackground>
       </View>
     </Animated.View>
   );
-
 
   return (
     <View style={styles.container}>
       <FlatList
         horizontal
         data={DATA}
-        style={{ height: 250 }}
-        contentContainerStyle={{ paddingVertical: 16 }}
+        style={{ height: 300 }}
+        contentContainerStyle={{paddingVertical: 16 }}
         contentInsetAdjustmentBehavior="never"
         snapToAlignment="center"
         decelerationRate="fast"
@@ -96,11 +100,42 @@ export default function Carousel() {
 }
 
 const styles = StyleSheet.create({
-  text: {
-    color: Colors.accent,
-    alignItems: "center",
+  date : {
+    paddingLeft : 10,
+    marginTop : '55%',
+    color: 'white',
+    textShadowColor : 'black',
+    textShadowRadius : 4,
+  },
+  title: {
+    color: 'white',
+    
+    paddingLeft : 10,
+    fontSize : 20,
+    textShadowColor : 'black',
+    textShadowRadius : 4,
+  },
+  info: {
+    color: 'white',
+    paddingLeft : 10,
+    fontSize : 15,
+    textShadowColor : 'black',
+    textShadowRadius : 4,
   },
   container: {
-    marginTop : 10,
+    marginTop: 10,
+  },
+  image: {
+    flex: 1,
+    justifyContent: "center",
+    
+  },
+  infoContainer: {
+    flex: 1,
+    flexDirection: "row",
+    paddingLeft : 10,
+    color : '#DDDDDD',
+    textShadowColor : 'black',
+    textShadowRadius : 4,
   },
 });

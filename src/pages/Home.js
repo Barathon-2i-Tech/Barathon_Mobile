@@ -1,5 +1,4 @@
-import { StyleSheet, Text, ScrollView, View } from "react-native";
-import Colors from "../constants/colors";
+import { StyleSheet, Text, ScrollView } from "react-native";
 import { getDataObject } from "../constants/localStorage";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Home/Header";
@@ -41,7 +40,7 @@ export default function Home() {
         <>
           <Header user={user}></Header>
           <Text style={styles.title}>Quoi de neuf dans ta ville ?</Text>
-          <Carousel></Carousel>
+          <Carousel DATA={events}></Carousel>
           <Text style={styles.title}>Découvrir</Text>
         </>
       )}
