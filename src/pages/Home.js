@@ -3,6 +3,7 @@ import { getDataObject } from "../constants/localStorage";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Home/Header";
 import Carousel from "../components/Home/Carousel";
+import Error from "../components/Error";
 import Axios from "../constants/axios";
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
         .then((response) => {
           console.log(response.data.data.event);
           setEvents(response.data.data.event);
+          console.log("Count events : ", response.data.data.event.length)
           setLoad(true);
         })
         .catch((error) => {
@@ -40,7 +42,11 @@ export default function Home() {
         <>
           <Header user={user}></Header>
           <Text style={styles.title}>Quoi de neuf dans ta ville ?</Text>
-          <Carousel DATA={events}></Carousel>
+          {
+            events.length == 0 ?
+            (<Error error={"Ohhh non.. Il n'y a pas d'événements prévu pour ta ville..."} />) : 
+            (<Carousel DATA={events}></Carousel>)
+          }
           <Text style={styles.title}>Découvrir</Text>
         </>
       )}
