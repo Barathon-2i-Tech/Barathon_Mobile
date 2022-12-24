@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
-
+/* eslint-disable react/prop-types */
 import { StyleSheet, Text, View, Image, Dimensions, } from "react-native";
-import Colors from "../constants/colors";
 
 export default function Example({error}) {
   return (

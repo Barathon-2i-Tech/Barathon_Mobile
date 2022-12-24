@@ -3,13 +3,34 @@ import { getDataObject } from "../constants/localStorage";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Home/Header";
 import Carousel from "../components/Home/Carousel";
+import CarouselTags from "../components/Home/CarouselTags";
 import Error from "../components/Error";
 import Axios from "../constants/axios";
 
 export default function Home() {
   const [user, setUser] = useState({});
   const [events, setEvents] = useState({});
+  const [tags, setTags] = useState({});
   const [load, setLoad] = useState(false);
+
+  async function getTopTags(user){
+    Axios.api
+    .get("/barathonien/top/categories", {
+      headers: {
+        Authorization: "Bearer " + user.token,
+      },
+    })
+    .then((response) => {
+      console.log("les tags mon frerot : ", response.data.data.categories)
+      setTags(response.data.data.categories);
+      setLoad(true);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+
   async function setDatas() {
     getDataObject("user").then((res) => {
       console.log("woulal le res : " + res.user.user_id);
@@ -21,10 +42,9 @@ export default function Home() {
           },
         })
         .then((response) => {
-          console.log(response.data.data.event);
           setEvents(response.data.data.event);
-          console.log("Count events : ", response.data.data.event.length)
-          setLoad(true);
+          getTopTags(res);
+          
         })
         .catch((error) => {
           console.log(error);
@@ -48,6 +68,7 @@ export default function Home() {
             (<Carousel DATA={events}></Carousel>)
           }
           <Text style={styles.title}>Découvrir</Text>
+          <CarouselTags DATA={tags}></CarouselTags>
         </>
       )}
     </ScrollView>
