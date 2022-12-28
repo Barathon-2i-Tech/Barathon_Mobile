@@ -6,6 +6,7 @@ import {
   FlatList,
   Animated,
   ImageBackground,
+  Pressable,
 } from "react-native";
 import React, { useState } from "react";
 import moment from 'moment-timezone';
@@ -14,14 +15,16 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 
-export default function Carousel({ DATA }) {
+export default function Carousel({ DATA, navigation }) {
   const [scrollViewWidth, setScrollViewWidth] = useState(0);
   const boxWidth = scrollViewWidth * 0.8;
   const boxDistance = scrollViewWidth - boxWidth;
   const halfBoxDistance = boxDistance / 2;
   const pan = React.useRef(new Animated.ValueXY()).current;
 
-
+  const handleSubmit = (event_id) => {
+    navigation.navigate("Event", {event_id : event_id});
+  };
 
   const renderItem = ({ item, index }) => (
     <Animated.View
@@ -41,6 +44,7 @@ export default function Carousel({ DATA }) {
         ],
       }}
     >
+    <Pressable onPress={() => {handleSubmit(item.event_id)}}>
       <View
         style={{
           height: "100%",
@@ -50,16 +54,19 @@ export default function Carousel({ DATA }) {
 
         }}
       >
-        <ImageBackground source={{ uri: item.poster }} resizeMode="cover" style={styles.image}>
-          <Text style={styles.date}>{moment(item.start_event).tz('Europe/Paris').format('dddd MMM YY, HH') + 'H'}</Text>
-          <Text style={styles.title}>{item.event_name}</Text>
-          <View style={styles.infoContainer}>
-            <Ionicons name="pricetag" size={15} color="#DDDDDD" iconStyle={{marginTop : 10}} />
-            <Text style={styles.info}>{item.price} €</Text>
-          </View>
+        
+          <ImageBackground source={{ uri: item.poster }} resizeMode="cover" style={styles.image}>
+            <Text style={styles.date}>{moment(item.start_event).tz('Europe/Paris').format('dddd MMM YY, HH') + 'H'}</Text>
+            <Text style={styles.title}>{item.event_name}</Text>
+            <View style={styles.infoContainer}>
+              <Ionicons name="pricetag" size={15} color="#DDDDDD" iconStyle={{marginTop : 10}} />
+              <Text style={styles.info}>{item.price} €</Text>
+            </View>
 
-        </ImageBackground>
+          </ImageBackground>
+        
       </View>
+      </Pressable>
     </Animated.View>
   );
 

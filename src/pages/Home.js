@@ -1,4 +1,7 @@
-import { StyleSheet, Text, ScrollView } from "react-native";
+/* eslint-disable no-undef */
+/* eslint-disable react/prop-types */
+
+import { StyleSheet, Text, ScrollView, View, ImageBackground, Dimensions, Pressable } from "react-native";
 import { getDataObject } from "../constants/localStorage";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Home/Header";
@@ -7,7 +10,7 @@ import CarouselTags from "../components/Home/CarouselTags";
 import Error from "../components/Error";
 import Axios from "../constants/axios";
 
-export default function Home() {
+export default function Home({ navigation }) {
   const [user, setUser] = useState({});
   const [events, setEvents] = useState({});
   const [tags, setTags] = useState({});
@@ -52,6 +55,10 @@ export default function Home() {
     });
   }
 
+  const handleSubmit = () => {
+    navigation.navigate("EventsByUser");
+  };
+
   useEffect(() => {
     setDatas();
   }, []);
@@ -65,16 +72,26 @@ export default function Home() {
           {
             events.length == 0 ?
             (<Error error={"Ohhh non.. Il n'y a pas d'événements prévu pour ta ville..."} />) : 
-            (<Carousel DATA={events}></Carousel>)
+            (<Carousel DATA={events} navigation={navigation}></Carousel>)
           }
           <Text style={styles.title}>Découvrir</Text>
-          <CarouselTags DATA={tags}></CarouselTags>
+          <CarouselTags DATA={tags} navigation={navigation}></CarouselTags>
+
+          <Text style={styles.title}>Mes prochains évènements</Text>
+          <Pressable onPress={() => {handleSubmit()}}>
+            <View style={styles.imageContainer}>
+              <ImageBackground source={require("../../assets/image/myevents.jpg")} resizeMode="cover" style={styles.image} imageStyle={{ borderRadius: 10}}>
+                <Text style={styles.insideImg}>Voir mes évènements</Text>
+              </ImageBackground>
+            </View>
+          </Pressable>
         </>
       )}
     </ScrollView>
   );
 }
 
+const width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   container: {
     marginLeft : 10,
@@ -86,4 +103,34 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize : 20,
   },
+  insideImg : {
+    color : '#DDDDDD',
+    textShadowColor : 'black',
+    textShadowRadius : 4,
+    marginTop : 50,
+    fontWeight: "bold",
+    fontSize : 20,
+    marginLeft : 28,
+  },
+  imageContainer : {
+    width : width / 1.5,
+    height : 130,
+    marginBottom : 50,
+    marginTop : 20,
+    marginLeft : width / 7,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.30,
+    
+    elevation: 13,
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+
+},
 });

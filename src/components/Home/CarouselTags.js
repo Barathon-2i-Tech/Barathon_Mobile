@@ -5,6 +5,7 @@ import {
     View,
     FlatList,
     Animated,
+    Pressable,
   } from "react-native";
   import React, { useState } from "react";
   import Ionicons from '@expo/vector-icons/Ionicons';
@@ -12,12 +13,16 @@ import {
   
   
   
-  export default function Carousel({ DATA }) {
+  export default function Carousel({ DATA, navigation }) {
     const [scrollViewWidth, setScrollViewWidth] = useState(0);
     const boxWidth = scrollViewWidth * 0.8;
     const boxDistance = scrollViewWidth - boxWidth;
     const halfBoxDistance = boxDistance / 2;
     const pan = React.useRef(new Animated.ValueXY()).current;
+
+    const handleSubmit = (category) => {
+      navigation.navigate("EventsByCategory", {category : category});
+    };
   
     const renderItem = ({ item, index }) => (
         
@@ -38,29 +43,31 @@ import {
           ],
         }}
       >
-        <View
-          style={{
-            height: "100%",
-            width: boxWidth / 1.7,
-            borderRadius: 60,
-            overflow: 'hidden',
-            backgroundColor : '#FFFFFF4B',
-  
-          }}
-        >
-          <View style={styles.infoContainer}>
-            <View style={styles.iconContainer}>
-              <View style={styles.icon}>
-                <Ionicons name={JSON.parse(item.label).icon} size={25} color="#5798FF" iconStyle={{marginLeft : 20}} />
+        <Pressable onPress={() => {handleSubmit(item)}}>
+          <View
+            style={{
+              height: "100%",
+              width: boxWidth / 1.7,
+              borderRadius: 60,
+              overflow: 'hidden',
+              backgroundColor : '#FFFFFF4B',
+    
+            }}
+          >
+            <View style={styles.infoContainer}>
+              <View style={styles.iconContainer}>
+                <View style={styles.icon}>
+                  <Ionicons name={JSON.parse(item.label).icon} size={25} color="#000000" iconStyle={{marginLeft : 20}} />
+                </View>
+                
               </View>
               
+              <Text style={styles.title}>{JSON.parse(item.label).name}</Text>
             </View>
-            
-            <Text style={styles.title}>{JSON.parse(item.label).name}</Text>
-          </View>
-            
+              
 
-        </View>
+          </View>
+        </Pressable>
       </Animated.View>
     );
   
@@ -104,7 +111,7 @@ import {
     title: {
       marginTop : '10%',
       marginLeft : 10,
-      color : '#5798FF',
+      color : '#000000',
     },
     container: {
       marginTop: 10,
@@ -115,7 +122,7 @@ import {
       paddingLeft : 10,
     },
     iconContainer : {
-      backgroundColor : '#ACCCFF',
+      backgroundColor : '#FFFFFFB0',
       marginTop : '5%',
       borderRadius : 200,
       height : 40,

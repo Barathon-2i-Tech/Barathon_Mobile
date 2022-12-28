@@ -2,6 +2,9 @@ import {} from "expo-status-bar";
 import {} from "react-native";
 import Authenticator from "./src/pages/Authenticator";
 import Home from "./src/pages/Home";
+import Event from "./src/pages/Event";
+import EventsByCategory from "./src/pages/EventsByCategory";
+import EventsByUser from "./src/pages/EventsByUser";
 import SearchEvent from "./src/pages/SearchEvent";
 import Notification from "./src/pages/Notification";
 import Dashboard from "./src/pages/Dashboard";
@@ -76,6 +79,9 @@ export default function App() {
           component={Authenticator}
         />
         <Stack.Screen options={{ headerShown: false }} name="HomeStack" component={HomeTabs} />
+        <Stack.Screen options={{ headerShown: false }} name="Event" component={Event} />
+        <Stack.Screen options={{ headerShown: false }} name="EventsByCategory" component={EventsByCategory} />
+        <Stack.Screen options={{ headerShown: false }} name="EventsByUser" component={EventsByUser} />
       </Stack.Navigator>
     </NavigationContainer>
   );
