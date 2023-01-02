@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 
-import { StyleSheet, Text, ScrollView, View, ImageBackground, Dimensions, Pressable } from "react-native";
+import { StyleSheet, Text, ScrollView, Dimensions } from "react-native";
 import { getDataObject } from "../constants/localStorage";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Home/Header";
@@ -9,6 +9,7 @@ import Carousel from "../components/Home/Carousel";
 import CarouselTags from "../components/Home/CarouselTags";
 import Error from "../components/Error";
 import Axios from "../constants/axios";
+import Agenda from "../components/Home/Agenda";
 
 export default function Home({ navigation }) {
   const [user, setUser] = useState({});
@@ -55,10 +56,6 @@ export default function Home({ navigation }) {
     });
   }
 
-  const handleSubmit = () => {
-    navigation.navigate("EventsByUser");
-  };
-
   useEffect(() => {
     setDatas();
   }, []);
@@ -78,13 +75,8 @@ export default function Home({ navigation }) {
           <CarouselTags DATA={tags} navigation={navigation}></CarouselTags>
 
           <Text style={styles.title}>Mes prochains évènements</Text>
-          <Pressable onPress={() => {handleSubmit()}}>
-            <View style={styles.imageContainer}>
-              <ImageBackground source={require("../../assets/image/myevents.jpg")} resizeMode="cover" style={styles.image} imageStyle={{ borderRadius: 10}}>
-                <Text style={styles.insideImg}>Voir mes évènements</Text>
-              </ImageBackground>
-            </View>
-          </Pressable>
+          <Agenda ></Agenda>
+
         </>
       )}
     </ScrollView>
