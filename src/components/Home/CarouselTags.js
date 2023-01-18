@@ -57,12 +57,13 @@ import {
             <View style={styles.infoContainer}>
               <View style={styles.iconContainer}>
                 <View style={styles.icon}>
-                  <Ionicons name={JSON.parse(item.label).icon} size={25} color="#000000" iconStyle={{marginLeft : 20}} />
+                  {/* <Ionicons name={JSON.parse(item.label).icon} size={25} color="#000000" iconStyle={{marginLeft : 20}} /> */}
+                  <Ionicons name="home" size={25} color="#000000" iconStyle={{marginLeft : 20}} />
                 </View>
                 
               </View>
               
-              <Text style={styles.title}>{JSON.parse(item.label).name}</Text>
+              <Text style={styles.title}>{JSON.parse(item.label).label}</Text>
             </View>
               
 

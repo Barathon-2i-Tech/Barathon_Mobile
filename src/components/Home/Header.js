@@ -12,7 +12,7 @@ export default function Header({user}) {
         />
       <View style={styles.containerText}>
         <Text style={styles.textHey}>Hey</Text>
-        <Text style={styles.name}>{user.user.first_name} {user.user.last_name}</Text>
+        <Text style={styles.name}>{user.userLogged.first_name} {user.userLogged.last_name}</Text>
       </View>
     </View>
   );

@@ -111,12 +111,13 @@ const styles = StyleSheet.create({
     paddingLeft : 10,
     marginTop : '55%',
     color: 'white',
+    backgroundColor: 'rgba(52, 52, 52, 0.5)',
     textShadowColor : 'black',
     textShadowRadius : 4,
   },
   title: {
     color: 'white',
-    
+    backgroundColor: 'rgba(52, 52, 52, 0.5)',
     paddingLeft : 10,
     fontSize : 20,
     textShadowColor : 'black',
@@ -141,6 +142,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     paddingLeft : 10,
+    backgroundColor: 'rgba(52, 52, 52, 0.5)',
     color : '#DDDDDD',
     textShadowColor : 'black',
     textShadowRadius : 4,

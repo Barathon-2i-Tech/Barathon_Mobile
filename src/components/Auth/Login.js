@@ -35,7 +35,7 @@ export default function Login({ navigation }) {
       )
       .then((response) => {
 
-        if (response.data.data["user"]["barathonien_id"] != null) {
+        if (response.data.data["userLogged"]["barathonien_id"] != null) {
           //Use LocalStorage in React Native
           storeDataObject("user", response.data.data);
           navigation.navigate("HomeStack");

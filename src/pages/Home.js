@@ -14,6 +14,7 @@ import Agenda from "../components/Home/Agenda";
 export default function Home({ navigation }) {
   const [user, setUser] = useState({});
   const [events, setEvents] = useState({});
+  const [eventsBook, setEventsBook] = useState({});
   const [tags, setTags] = useState({});
   const [load, setLoad] = useState(false);
 
@@ -27,6 +28,22 @@ export default function Home({ navigation }) {
     .then((response) => {
       console.log("les tags mon frerot : ", response.data.data.categories)
       setTags(response.data.data.categories);
+      getEventBooking(user);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  async function getEventBooking(user){
+    Axios.api
+    .get("/barathonien/" + user.userLogged.user_id + "/booking/event", {
+      headers: {
+        Authorization: "Bearer " + user.token,
+      },
+    })
+    .then((response) => {
+      setEventsBook(response.data.data.bookings);
       setLoad(true);
     })
     .catch((error) => {
@@ -37,10 +54,9 @@ export default function Home({ navigation }) {
 
   async function setDatas() {
     getDataObject("user").then((res) => {
-      console.log("woulal le res : " + res.user.user_id);
       setUser(res);
       Axios.api
-        .get("/barathonien/" + res.user.user_id + "/city/event", {
+        .get("/barathonien/" + res.userLogged.user_id + "/city/event", {
           headers: {
             Authorization: "Bearer " + res.token,
           },
@@ -75,7 +91,7 @@ export default function Home({ navigation }) {
           <CarouselTags DATA={tags} navigation={navigation}></CarouselTags>
 
           <Text style={styles.title}>Mes prochains évènements</Text>
-          <Agenda ></Agenda>
+          <Agenda events={eventsBook} navigation={navigation}></Agenda>
 
         </>
       )}
