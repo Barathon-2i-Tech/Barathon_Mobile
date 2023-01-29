@@ -23,7 +23,7 @@ export default function Carousel({ DATA, navigation }) {
   const pan = React.useRef(new Animated.ValueXY()).current;
 
   const handleSubmit = (event_id) => {
-    navigation.navigate("Event", {event_id : event_id});
+    navigation.navigate("Event", { event_id: event_id });
   };
 
   const renderItem = ({ item, index }) => (
@@ -44,28 +44,28 @@ export default function Carousel({ DATA, navigation }) {
         ],
       }}
     >
-    <Pressable onPress={() => {handleSubmit(item.event_id)}}>
-      <View
-        style={{
-          height: "100%",
-          width: boxWidth,
-          borderRadius: 20,
-          overflow: 'hidden',
+      <Pressable onPress={() => { handleSubmit(item.event_id) }}>
+        <View
+          style={{
+            height: "100%",
+            width: boxWidth,
+            borderRadius: 20,
+            overflow: 'hidden',
 
-        }}
-      >
-        
+          }}
+        >
+
           <ImageBackground source={{ uri: item.poster }} resizeMode="cover" style={styles.image}>
             <Text style={styles.date}>{moment(item.start_event).tz('Europe/Paris').format('dddd MMM YY, HH') + 'H'}</Text>
             <Text style={styles.title}>{item.event_name}</Text>
             <View style={styles.infoContainer}>
-              <Ionicons name="pricetag" size={15} color="#DDDDDD" iconStyle={{marginTop : 10}} />
+              <Ionicons name="pricetag" size={15} color="#DDDDDD" iconStyle={{ marginTop: 10 }} />
               <Text style={styles.info}>{item.price} €</Text>
             </View>
 
           </ImageBackground>
-        
-      </View>
+
+        </View>
       </Pressable>
     </Animated.View>
   );
@@ -76,7 +76,7 @@ export default function Carousel({ DATA, navigation }) {
         horizontal
         data={DATA}
         style={{ height: 300 }}
-        contentContainerStyle={{paddingVertical: 16 }}
+        contentContainerStyle={{ paddingVertical: 16 }}
         contentInsetAdjustmentBehavior="never"
         snapToAlignment="center"
         decelerationRate="fast"
@@ -107,28 +107,29 @@ export default function Carousel({ DATA, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  date : {
-    paddingLeft : 10,
-    marginTop : '55%',
+  date: {
+    paddingTop: 10,
+    paddingLeft: 10,
+    marginTop: '55%',
     color: 'white',
-    backgroundColor: 'rgba(52, 52, 52, 0.5)',
-    textShadowColor : 'black',
-    textShadowRadius : 4,
+    backgroundColor: 'rgba(52, 52, 52, 0.7)',
+    textShadowColor: 'black',
+    textShadowRadius: 4,
   },
   title: {
     color: 'white',
-    backgroundColor: 'rgba(52, 52, 52, 0.5)',
-    paddingLeft : 10,
-    fontSize : 20,
-    textShadowColor : 'black',
-    textShadowRadius : 4,
+    backgroundColor: 'rgba(52, 52, 52, 0.7)',
+    paddingLeft: 10,
+    fontSize: 20,
+    textShadowColor: 'black',
+    textShadowRadius: 4,
   },
   info: {
     color: 'white',
-    paddingLeft : 10,
-    fontSize : 15,
-    textShadowColor : 'black',
-    textShadowRadius : 4,
+    paddingLeft: 10,
+    fontSize: 15,
+    textShadowColor: 'black',
+    textShadowRadius: 4,
   },
   container: {
     marginTop: 10,
@@ -136,15 +137,15 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     justifyContent: "center",
-    
+
   },
   infoContainer: {
     flex: 1,
     flexDirection: "row",
-    paddingLeft : 10,
+    paddingLeft: 10,
     backgroundColor: 'rgba(52, 52, 52, 0.5)',
-    color : '#DDDDDD',
-    textShadowColor : 'black',
-    textShadowRadius : 4,
+    color: '#DDDDDD',
+    textShadowColor: 'black',
+    textShadowRadius: 4,
   },
 });
