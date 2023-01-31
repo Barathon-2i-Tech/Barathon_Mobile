@@ -18,7 +18,6 @@ export default function Login({ navigation }) {
 
   // login fonction : get mail and password of user and check login method api for accept or not the login and redirect to Home when it's ok
   const login = async (values) => {
-
     Axios.api
       .post(
         "/login",
@@ -35,7 +34,7 @@ export default function Login({ navigation }) {
       )
       .then((response) => {
 
-        if (response.data.data["user"]["barathonien_id"] != null) {
+        if (response.data.data["userLogged"]["barathonien_id"] != null) {
           //Use LocalStorage in React Native
           storeDataObject("user", response.data.data);
           navigation.navigate("HomeStack");
@@ -87,7 +86,7 @@ export default function Login({ navigation }) {
             value={values.password}
             placeholder="Mot de passe"
             keyboardType="default"
-            secureTextEntry={true} 
+            secureTextEntry={true}
           />
 
           {errors.password && (
