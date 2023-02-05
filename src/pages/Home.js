@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 
-import { StyleSheet, Text, ScrollView, Dimensions } from "react-native";
+import { StyleSheet, Text, ScrollView, Dimensions, RefreshControl, SafeAreaView } from "react-native";
 import { getDataObject } from "../constants/localStorage";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Home/Header";
@@ -17,6 +17,14 @@ export default function Home({ navigation }) {
   const [eventsBook, setEventsBook] = useState({});
   const [tags, setTags] = useState({});
   const [load, setLoad] = useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setDatas();
+  }, []);
+
 
   async function getTopTags(user) {
     Axios.api
@@ -26,7 +34,6 @@ export default function Home({ navigation }) {
         },
       })
       .then((response) => {
-        console.error("les tags mon frerot : ", response.data.data.categories)
         setTags(response.data.data.categories);
         getEventBooking(user);
       })
@@ -64,10 +71,10 @@ export default function Home({ navigation }) {
         .then((response) => {
           setEvents(response.data.data.event);
           getTopTags(res);
-
+          setRefreshing(false);
         })
         .catch((error) => {
-          console.log(error);
+          console.log({error});
         });
     });
   }
@@ -77,25 +84,33 @@ export default function Home({ navigation }) {
   }, []);
 
   return (
-    <ScrollView style={styles.container}>
-      {load == true && (
-        <>
-          <Header user={user}></Header>
-          <Text style={styles.title}>Quoi de neuf dans ta ville ?</Text>
-          {
-            events.length == 0 ?
-              (<Error error={"Ohhh non.. Il n'y a pas d'événements prévu pour ta ville..."} />) :
-              (<Carousel DATA={events} navigation={navigation}></Carousel>)
-          }
-          <Text style={styles.title}>Découvrir</Text>
-          <CarouselTags DATA={tags} navigation={navigation}></CarouselTags>
+    <SafeAreaView>
+      <ScrollView
+      style={styles.container}
+        refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
 
-          <Text style={styles.title}>Mes prochains évènements</Text>
-          <Agenda events={eventsBook} navigation={navigation}></Agenda>
+        {load == true && (
+          <>
+            <Header user={user}></Header>
+            <Text style={styles.title}>Quoi de neuf dans ta ville ?</Text>
+            {
+              events.length == 0 ?
+                (<Error error={"Ohhh non.. Il n'y a pas d'événements prévu pour ta ville..."} />) :
+                (<Carousel DATA={events} navigation={navigation} user={user}></Carousel>)
+            }
+            <Text style={styles.title}>Découvrir</Text>
+            <CarouselTags DATA={tags} navigation={navigation} user={user}></CarouselTags>
 
-        </>
-      )}
-    </ScrollView>
+            <Text style={styles.title}>Mes prochains évènements</Text>
+            <Agenda events={eventsBook} navigation={navigation} user={user}></Agenda>
+
+          </>
+        )}
+      </ScrollView>
+    </SafeAreaView>
+
   );
 }
 

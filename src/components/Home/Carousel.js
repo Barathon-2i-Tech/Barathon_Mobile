@@ -15,7 +15,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 
 
-export default function Carousel({ DATA, navigation }) {
+export default function Carousel({ DATA, navigation, user }) {
   const [scrollViewWidth, setScrollViewWidth] = useState(0);
   const boxWidth = scrollViewWidth * 0.8;
   const boxDistance = scrollViewWidth - boxWidth;
@@ -23,7 +23,7 @@ export default function Carousel({ DATA, navigation }) {
   const pan = React.useRef(new Animated.ValueXY()).current;
 
   const handleSubmit = (event_id) => {
-    navigation.navigate("Event", { event_id: event_id });
+    navigation.navigate("Event", { event_id: event_id, user : user, navigation : navigation });
   };
 
   const renderItem = ({ item, index }) => (
