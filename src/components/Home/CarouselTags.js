@@ -10,10 +10,7 @@ import {
 import React, { useState } from "react";
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-
-
-
-export default function Carousel({ DATA, navigation }) {
+export default function Carousel({ DATA, navigation, user }) {
   const [scrollViewWidth, setScrollViewWidth] = useState(0);
   const boxWidth = scrollViewWidth * 0.8;
   const boxDistance = scrollViewWidth - boxWidth;
@@ -21,11 +18,11 @@ export default function Carousel({ DATA, navigation }) {
   const pan = React.useRef(new Animated.ValueXY()).current;
 
   const handleSubmit = (category) => {
-    navigation.navigate("EventsByCategory", { category: category });
+    navigation.navigate("EventsByCategory", { category: category, user: user, navigation : navigation });
   };
 
   const renderItem = ({ item, index }) => (
-
+    
     <Animated.View
       style={{
         transform: [
@@ -44,6 +41,7 @@ export default function Carousel({ DATA, navigation }) {
       }}
     >
       <Pressable onPress={() => { handleSubmit(item) }}>
+        
         <View
           style={{
             height: "100%",
@@ -63,7 +61,7 @@ export default function Carousel({ DATA, navigation }) {
 
             </View>
 
-            <Text style={styles.title}>{JSON.parse(item.label).name}</Text>
+            <Text style={styles.title}>{JSON.parse(item.label).label}</Text>
           </View>
 
 

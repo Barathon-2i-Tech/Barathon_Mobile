@@ -10,10 +10,10 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import moment from 'moment-timezone';
 moment.locale();
 
-export default function Agendas({ navigation, events }) {
+export default function Agendas({ navigation, events, user }) {
 
   const handleSubmit = (event_id) => {
-    navigation.navigate("Event", { event_id: event_id });
+    navigation.navigate("Event", { event_id: event_id, user: user, navigation : navigation });
   };
 
   return (
