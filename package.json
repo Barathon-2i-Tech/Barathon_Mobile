@@ -9,6 +9,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "lint": "eslint \"src/**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"src/**/*.{js,jsx}\" --fix",
     "prepare": "husky install"
   },
   "dependencies": {

@@ -11,7 +11,7 @@ export default function Example() {
 
 const styles = StyleSheet.create({
   text: {
-    color: Colors.accent,
     alignItems: "center",
+    color: Colors.accent,
   },
 });

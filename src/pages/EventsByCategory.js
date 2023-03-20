@@ -3,8 +3,8 @@
 import { StyleSheet, Text, View } from "react-native";
 import Colors from "../constants/colors";
 
-export default function EventsByCategory({route}) {
-    const { category } = route.params;
+export default function EventsByCategory({ route }) {
+  const { category } = route.params;
 
   return (
     <View>
@@ -15,7 +15,7 @@ export default function EventsByCategory({route}) {
 
 const styles = StyleSheet.create({
   text: {
-    color: Colors.accent,
     alignItems: "center",
+    color: Colors.accent,
   },
 });

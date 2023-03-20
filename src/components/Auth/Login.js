@@ -15,7 +15,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 
 export default function Login({ navigation }) {
-
   // login fonction : get mail and password of user and check login method api for accept or not the login and redirect to Home when it's ok
   const login = async (values) => {
     Axios.api
@@ -27,13 +26,12 @@ export default function Login({ navigation }) {
         },
         {
           headers: {
-            "Accept": "application/vnd.api+json",
+            Accept: "application/vnd.api+json",
             "Content-Type": "application/vnd.api+json",
           },
         }
       )
       .then((response) => {
-
         if (response.data.data["userLogged"]["barathonien_id"] != null) {
           //Use LocalStorage in React Native
           storeDataObject("user", response.data.data);
@@ -55,7 +53,9 @@ export default function Login({ navigation }) {
     email: Yup.string()
       .required("Saisie ton email")
       .email("Saisie une adresse email"),
-    password: Yup.string().min(8, "Mot de passe trop court! >8").required("Saisie ton mot de passe"),
+    password: Yup.string()
+      .min(8, "Mot de passe trop court! >8")
+      .required("Saisie ton mot de passe"),
   });
 
   return (
@@ -90,7 +90,9 @@ export default function Login({ navigation }) {
           />
 
           {errors.password && (
-            <Text style={{ fontSize: 10, color: "red" }}>{errors.password}</Text>
+            <Text style={{ fontSize: 10, color: "red" }}>
+              {errors.password}
+            </Text>
           )}
 
           <Pressable onPress={handleSubmit} style={styles.button}>
@@ -110,29 +112,29 @@ export default function Login({ navigation }) {
 
 const width = Dimensions.get("window").width;
 const styles = StyleSheet.create({
-  mainContainer: {
-    width: width / 1.1,
-    marginLeft: width / 25,
-  },
-  input: {
-    backgroundColor: "#F0F0F0",
-    height: 50,
+  button: {
+    backgroundColor: Colors.primary,
     borderRadius: 5,
+    height: 50,
+    marginTop: 20,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    paddingTop: 10,
+    textAlign: "center",
+  },
+
+  input: {
+    backgroundColor: '#F0F0F0',
+    borderRadius: 5,
+    height: 50,
     marginTop: 30,
     paddingLeft: 15,
   },
 
-  button: {
-    backgroundColor: Colors.primary,
-    height: 50,
-    borderRadius: 5,
-    marginTop: 20,
-  },
-
-  buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 18,
-    paddingTop: 10,
+  mainContainer: {
+    marginLeft: width / 25,
+    width: width / 1.1,
   },
 });

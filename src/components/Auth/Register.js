@@ -15,7 +15,7 @@ import Axios from "../../constants/axios";
 import { storeDataObject } from "../../constants/localStorage";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import moment from 'moment';
+import moment from "moment";
 
 export default function Register({ navigation }) {
   const [date, setDate] = useState(new Date());
@@ -55,8 +55,7 @@ export default function Register({ navigation }) {
 
   //when the birth's date is chosen, check if the user is an adult
   const checkBirth = () => {
-    
-    const age = moment().diff(date, 'years');
+    const age = moment().diff(date, "years");
 
     if (
       date.toString().substring(0, 10) == new Date().toString().substring(0, 10)
@@ -95,7 +94,7 @@ export default function Register({ navigation }) {
         },
         {
           headers: {
-            "Accept": "application/vnd.api+json",
+            Accept: "application/vnd.api+json",
             "Content-Type": "application/vnd.api+json",
           },
         }
@@ -145,7 +144,9 @@ export default function Register({ navigation }) {
             {!selectDate ? (
               <Text style={styles.buttonText}>saisir ta date de naissance</Text>
             ) : (
-              <Text style={styles.buttonText}>{moment(date).format('DD/MM/YYYY')}</Text>
+              <Text style={styles.buttonText}>
+                {moment(date).format("DD/MM/YYYY")}
+              </Text>
             )}
           </Pressable>
           <Pressable style={styles.valider} onPress={checkBirth}>
@@ -196,7 +197,7 @@ export default function Register({ navigation }) {
                   value={values.password}
                   placeholder="Mot de passe"
                   keyboardType="default"
-                  secureTextEntry={true} 
+                  secureTextEntry={true}
                 />
                 {errors.password && (
                   <Text style={{ fontSize: 10, color: "red" }}>
@@ -210,7 +211,7 @@ export default function Register({ navigation }) {
                   value={values.confirmPassword}
                   placeholder="Confirmer votre Mot de passe"
                   keyboardType="default"
-                  secureTextEntry={true} 
+                  secureTextEntry={true}
                 />
                 {errors.confirmPassword && (
                   <Text style={{ fontSize: 10, color: "red" }}>
@@ -330,9 +331,28 @@ const width = Dimensions.get("window").width;
 //const height = Dimensions.get("window").height; //full height
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    width: width / 1.1,
-    marginLeft: width / 25,
+  btnDate: {
+    alignItems: "center",
+    backgroundColor: Colors.primary,
+    borderRadius: 5,
+    height: 40,
+    marginLeft: 50,
+    width: width / 1.5,
+  },
+
+  buttonText: {
+    color: "white",
+    fontSize: 18,
+    paddingTop: 6,
+    textAlign: "center",
+  },
+
+  input: {
+    backgroundColor: "#F0F0F0",
+    borderRadius: 5,
+    height: 50,
+    marginTop: 30,
+    paddingLeft: 15,
   },
 
   inputContainer: {
@@ -343,57 +363,38 @@ const styles = StyleSheet.create({
 
   inputFlex: {
     backgroundColor: "#F0F0F0",
-    height: 50,
-    width: width / 2.5,
     borderRadius: 5,
+    height: 50,
     marginTop: 30,
     paddingLeft: 15,
+    width: width / 2.5,
   },
 
-  input: {
-    backgroundColor: "#F0F0F0",
-    height: 50,
-    borderRadius: 5,
-    marginTop: 30,
-    paddingLeft: 15,
+  mainContainer: {
+    marginLeft: width / 25,
+    width: width / 1.1,
   },
 
   title: {
-    fontWeight: "bold",
     fontSize: 20,
-    textAlign: "center",
+    fontWeight: "bold",
     marginBottom: 15,
+    textAlign: "center",
   },
 
   title2: {
-    fontWeight: "bold",
     fontSize: 20,
+    fontWeight: "bold",
     textAlign: "center",
-  },
-
-  btnDate: {
-    backgroundColor: Colors.primary,
-    height: 40,
-    width: width / 1.5,
-    alignItems: "center",
-    marginLeft: 50,
-    borderRadius: 5,
-  },
-
-  buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontSize: 18,
-    paddingTop: 6,
   },
 
   valider: {
     backgroundColor: Colors.accent,
+    borderRadius: 10,
+    height: 40,
+    marginBottom: 20,
+    marginLeft: 50,
     marginTop: 30,
     width: width / 1.5,
-    marginLeft: 50,
-    height: 40,
-    borderRadius: 10,
-    marginBottom: 20,
   },
 });
