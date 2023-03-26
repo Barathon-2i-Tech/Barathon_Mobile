@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import {
   Text,
   View,
@@ -57,7 +59,7 @@ export default function Agendas({ navigation, events, user }) {
                           name="pricetag"
                           size={15}
                           color="#DDDDDD"
-                          iconStyle={{ marginTop: 10 }}
+                          iconStyle={styles.icon}
                         />
                         <Text style={styles.info}>
                           {eventBook.event.price} €
@@ -76,6 +78,11 @@ export default function Agendas({ navigation, events, user }) {
 }
 
 const width = Dimensions.get("window").width;
+const white = "white";
+const black = "black";
+const bkColor = "rgba(52, 52, 52, 0.7)";
+const bkColor2 = "rgba(52, 52, 52, 0.5)";
+const colorContainer = "#DDDDDD";
 const styles = StyleSheet.create({
   container: {
     marginLeft: "2%",
@@ -84,12 +91,12 @@ const styles = StyleSheet.create({
   },
 
   date: {
-    backgroundColor: "rgba(52, 52, 52, 0.7)",
-    color: "white",
+    backgroundColor: bkColor,
+    color: white,
     marginTop: "37%",
     paddingLeft: 10,
     paddingTop: 10,
-    textShadowColor: "black",
+    textShadowColor: black,
     textShadowRadius: 4,
   },
 
@@ -104,6 +111,11 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
   },
+
+  icon : {
+    marginTop: 10,
+  },
+
   image: {
     borderRadius: 20,
     flex: 1,
@@ -113,28 +125,28 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   info: {
-    color: "white",
+    color: white,
     fontSize: 15,
     paddingLeft: 10,
-    textShadowColor: "black",
+    textShadowColor: black,
     textShadowRadius: 4,
   },
 
   infoContainer: {
-    backgroundColor: "rgba(52, 52, 52, 0.5)",
-    color: "#DDDDDD",
+    backgroundColor: bkColor2,
+    color: colorContainer,
     flex: 1,
     flexDirection: "row",
     paddingLeft: 10,
-    textShadowColor: "black",
+    textShadowColor: black,
     textShadowRadius: 4,
   },
   title: {
-    backgroundColor: "rgba(52, 52, 52, 0.7)",
-    color: "white",
+    backgroundColor: bkColor,
+    color: white,
     fontSize: 20,
     paddingLeft: 10,
-    textShadowColor: "black",
+    textShadowColor: black,
     textShadowRadius: 4,
   },
 });

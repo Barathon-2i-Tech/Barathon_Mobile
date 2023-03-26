@@ -17,7 +17,7 @@ export default function Example({ error }) {
 }
 
 const width = Dimensions.get("window").width;
-
+const textColor = "black";
 const styles = StyleSheet.create({
   logoContainer: {
     justifyContent: "center",
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     width: 170,
   },
   text: {
-    color: "black",
+    color: textColor,
     justifyContent: "center",
     marginTop: "20%",
     textAlign: "center",

@@ -7,7 +7,6 @@ import {
   Text,
   Dimensions,
 } from "react-native";
-import React from "react";
 import Colors from "../../constants/colors";
 import { storeDataObject } from "../../constants/localStorage";
 import Axios from "../../constants/axios";
@@ -76,7 +75,7 @@ export default function Login({ navigation }) {
           />
 
           {errors.email && (
-            <Text style={{ fontSize: 10, color: "red" }}>{errors.email}</Text>
+            <Text style={styles.error}>{errors.email}</Text>
           )}
 
           <TextInput
@@ -90,7 +89,7 @@ export default function Login({ navigation }) {
           />
 
           {errors.password && (
-            <Text style={{ fontSize: 10, color: "red" }}>
+            <Text style={styles.error}>
               {errors.password}
             </Text>
           )}
@@ -111,6 +110,9 @@ export default function Login({ navigation }) {
 }
 
 const width = Dimensions.get("window").width;
+const errorColor = "red";
+const buttonColorText = "white";
+const backgroundColorInput = '#F0F0F0';
 const styles = StyleSheet.create({
   button: {
     backgroundColor: Colors.primary,
@@ -118,15 +120,21 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 20,
   },
+
   buttonText: {
-    color: "white",
+    color: buttonColorText,
     fontSize: 18,
     paddingTop: 10,
     textAlign: "center",
   },
 
+  error: {
+    color: errorColor,
+    fontSize: 10, 
+  },
+
   input: {
-    backgroundColor: '#F0F0F0',
+    backgroundColor: backgroundColorInput,
     borderRadius: 5,
     height: 50,
     marginTop: 30,

@@ -16,6 +16,7 @@ export default function Carousel({ DATA, navigation, user }) {
   const boxDistance = scrollViewWidth - boxWidth;
   const halfBoxDistance = boxDistance / 2;
   const pan = React.useRef(new Animated.ValueXY()).current;
+  const grayColor = "#FFFFFF4B";
 
   const handleSubmit = (category) => {
     navigation.navigate("EventsByCategory", {
@@ -49,12 +50,13 @@ export default function Carousel({ DATA, navigation, user }) {
         }}
       >
         <View
+        // eslint-disable-next-line react-native/no-inline-styles
           style={{
             height: "100%",
             width: boxWidth / 1.7,
             borderRadius: 60,
             overflow: "hidden",
-            backgroundColor: "#FFFFFF4B",
+            backgroundColor: grayColor,
           }}
         >
           <View style={styles.infoContainer}>
@@ -65,7 +67,7 @@ export default function Carousel({ DATA, navigation, user }) {
                   name="beer"
                   size={25}
                   color="#000000"
-                  iconStyle={{ marginLeft: 20 }}
+                  iconStyle={styles.iconMarg}
                 />
               </View>
             </View>
@@ -84,8 +86,8 @@ export default function Carousel({ DATA, navigation, user }) {
       <FlatList
         horizontal
         data={DATA}
-        style={{ height: 90 }}
-        contentContainerStyle={{ paddingVertical: 16 }}
+        style={styles.flatHeight}
+        contentContainerStyle={styles.flatPadding}
         contentInsetAdjustmentBehavior="never"
         snapToAlignment="center"
         decelerationRate="fast"
@@ -115,28 +117,44 @@ export default function Carousel({ DATA, navigation, user }) {
   );
 }
 
+const black = "black";
+const gray = "#FFFFFFB0";
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
+  },
+
+  flatHeight  :{
+    height: 300,
+  },
+
+  flatPadding :{
+    paddingVertical: 16
   },
   icon: {
     marginLeft: 7,
     marginTop: 5,
   },
+
   iconContainer: {
-    backgroundColor: "#FFFFFFB0",
+    backgroundColor: gray,
     borderRadius: 200,
     height: 40,
     marginTop: "5%",
     width: 40,
   },
+
+  iconMarg : {
+    marginTop: 10,
+  },
+
   infoContainer: {
     flex: 1,
     flexDirection: "row",
     paddingLeft: 10,
   },
   title: {
-    color: "#000000",
+    color: black,
     marginLeft: 10,
     marginTop: "10%",
   },

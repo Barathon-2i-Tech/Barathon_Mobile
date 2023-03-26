@@ -51,6 +51,7 @@ export default function Carousel({ DATA, navigation, user }) {
         }}
       >
         <View
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{
             height: "100%",
             width: boxWidth,
@@ -74,7 +75,7 @@ export default function Carousel({ DATA, navigation, user }) {
                 name="pricetag"
                 size={15}
                 color="#DDDDDD"
-                iconStyle={{ marginTop: 10 }}
+                iconStyle={styles.icon}
               />
               <Text style={styles.info}>{item.price} €</Text>
             </View>
@@ -89,8 +90,8 @@ export default function Carousel({ DATA, navigation, user }) {
       <FlatList
         horizontal
         data={DATA}
-        style={{ height: 300 }}
-        contentContainerStyle={{ paddingVertical: 16 }}
+        style={styles.flatHeight}
+        contentContainerStyle={styles.flatPadding}
         contentInsetAdjustmentBehavior="never"
         snapToAlignment="center"
         decelerationRate="fast"
@@ -120,45 +121,66 @@ export default function Carousel({ DATA, navigation, user }) {
   );
 }
 
+const white = "white";
+const black = "black";
+const bkColor = "rgba(52, 52, 52, 0.7)";
+const bkColor2 = "rgba(52, 52, 52, 0.5)";
+const colorContainer = "#DDDDDD";
+
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
   },
   date: {
-    backgroundColor: "rgba(52, 52, 52, 0.7)",
-    color: "white",
+    backgroundColor: bkColor,
+    color: white,
     marginTop: "55%",
     paddingLeft: 10,
     paddingTop: 10,
-    textShadowColor: "black",
+    textShadowColor: black,
     textShadowRadius: 4,
   },
+
+  flatHeight  :{
+    height: 300,
+  },
+
+  flatPadding :{
+    paddingVertical: 16
+  },
+
+  icon : {
+    marginTop: 10,
+  },
+
   image: {
     flex: 1,
     justifyContent: "center",
   },
+
   info: {
-    color: "white",
+    color: white,
     fontSize: 15,
     paddingLeft: 10,
-    textShadowColor: "black",
+    textShadowColor: black,
     textShadowRadius: 4,
   },
+
   infoContainer: {
-    backgroundColor: "rgba(52, 52, 52, 0.5)",
-    color: "#DDDDDD",
+    backgroundColor: bkColor2,
+    color: colorContainer,
     flex: 1,
     flexDirection: "row",
     paddingLeft: 10,
-    textShadowColor: "black",
+    textShadowColor: black,
     textShadowRadius: 4,
   },
   title: {
-    backgroundColor: "rgba(52, 52, 52, 0.7)",
-    color: "white",
+    backgroundColor: bkColor,
+    color: white,
     fontSize: 20,
     paddingLeft: 10,
-    textShadowColor: "black",
+    textShadowColor: black,
     textShadowRadius: 4,
   },
 });

@@ -8,16 +8,11 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-native/all",
-    "prettier",
     "plugin:react/jsx-runtime"
   ],
   "plugins": [
-    "prettier"
   ],
   "rules": {
-    "prettier/prettier": [
-      "error"
-    ]
   },
   "env": {
     "es6": true,

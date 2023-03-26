@@ -9,7 +9,7 @@ import {
   TextInput,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import React, { useState } from "react";
+import { useState } from "react";
 import Colors from "../../constants/colors";
 import Axios from "../../constants/axios";
 import { storeDataObject } from "../../constants/localStorage";
@@ -186,7 +186,7 @@ export default function Register({ navigation }) {
                   keyboardType="email-adress"
                 />
                 {errors.email && (
-                  <Text style={{ fontSize: 10, color: "red" }}>
+                  <Text style={styles.error}>
                     {errors.email}
                   </Text>
                 )}
@@ -200,7 +200,7 @@ export default function Register({ navigation }) {
                   secureTextEntry={true}
                 />
                 {errors.password && (
-                  <Text style={{ fontSize: 10, color: "red" }}>
+                  <Text style={styles.error}>
                     {errors.password}
                   </Text>
                 )}
@@ -214,7 +214,7 @@ export default function Register({ navigation }) {
                   secureTextEntry={true}
                 />
                 {errors.confirmPassword && (
-                  <Text style={{ fontSize: 10, color: "red" }}>
+                  <Text style={styles.error}>
                     {errors.confirmPassword}
                   </Text>
                 )}
@@ -266,12 +266,12 @@ export default function Register({ navigation }) {
                 </View>
                 <View style={styles.inputContainer}>
                   {errors.last_name && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={styles.error}>
                       {errors.last_name}
                     </Text>
                   )}
                   {errors.first_name && (
-                    <Text style={{ fontSize: 10, color: "red" }}>
+                    <Text style={styles.error}>
                       {errors.first_name}
                     </Text>
                   )}
@@ -285,7 +285,7 @@ export default function Register({ navigation }) {
                   keyboardType="default"
                 />
                 {errors.adress && (
-                  <Text style={{ fontSize: 10, color: "red" }}>
+                  <Text style={styles.error}>
                     {errors.adress}
                   </Text>
                 )}
@@ -298,7 +298,7 @@ export default function Register({ navigation }) {
                   keyboardType="numeric"
                 />
                 {errors.postal_code && (
-                  <Text style={{ fontSize: 10, color: "red" }}>
+                  <Text style={styles.error}>
                     {errors.postal_code}
                   </Text>
                 )}
@@ -311,7 +311,7 @@ export default function Register({ navigation }) {
                   keyboardType="default"
                 />
                 {errors.city && (
-                  <Text style={{ fontSize: 10, color: "red" }}>
+                  <Text style={styles.error}>
                     {errors.city}
                   </Text>
                 )}
@@ -328,6 +328,9 @@ export default function Register({ navigation }) {
 }
 
 const width = Dimensions.get("window").width;
+const buttonTextColor = "white";
+const backgroundColor = "#F0F0F0";
+const errorColor = "red";
 //const height = Dimensions.get("window").height; //full height
 
 const styles = StyleSheet.create({
@@ -341,14 +344,19 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: "white",
+    color: buttonTextColor,
     fontSize: 18,
     paddingTop: 6,
     textAlign: "center",
   },
 
+  error: {
+    color: errorColor,
+    fontSize: 10, 
+  },
+
   input: {
-    backgroundColor: "#F0F0F0",
+    backgroundColor: backgroundColor,
     borderRadius: 5,
     height: 50,
     marginTop: 30,
@@ -362,7 +370,7 @@ const styles = StyleSheet.create({
   },
 
   inputFlex: {
-    backgroundColor: "#F0F0F0",
+    backgroundColor: backgroundColor,
     borderRadius: 5,
     height: 50,
     marginTop: 30,

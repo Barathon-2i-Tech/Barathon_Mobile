@@ -20,6 +20,8 @@ export default function Header({ user }) {
   );
 }
 
+
+const grey = "grey";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
     width: 70,
   },
   textHey: {
-    color: "grey",
+    color: grey,
     fontSize: 10,
     marginTop: 10,
   },

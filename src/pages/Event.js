@@ -11,7 +11,7 @@ import {
   Image,
 } from "react-native";
 import moment from "moment-timezone";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Axios from "../constants/axios";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MapView from "react-native-maps";
@@ -119,7 +119,7 @@ export default function Event({ route }) {
                   name="arrow-back"
                   size={30}
                   color="#FFFFFF"
-                  iconStyle={{ marginTop: 10 }}
+                  iconStyle={styles.margin}
                 />
               </Pressable>
             </View>
@@ -133,7 +133,7 @@ export default function Event({ route }) {
                   name="calendar"
                   size={25}
                   color="#FFFFFF"
-                  iconStyle={{ marginTop: 10 }}
+                  iconStyle={styles.margin}
                 />
               </View>
               <Text style={styles.textInfo}>
@@ -150,7 +150,7 @@ export default function Event({ route }) {
                   name="map"
                   size={25}
                   color="#FFFFFF"
-                  iconStyle={{ marginTop: 10 }}
+                  iconStyle={styles.margin}
                 />
               </View>
               <Text style={styles.textInfo}>
@@ -166,7 +166,7 @@ export default function Event({ route }) {
                   name="pricetag"
                   size={25}
                   color="#FFFFFF"
-                  iconStyle={{ marginTop: 10 }}
+                  iconStyle={styles.margin}
                 />
               </View>
               <Text style={styles.textInfo}>{event.price} €</Text>
@@ -177,7 +177,7 @@ export default function Event({ route }) {
                   name="person"
                   size={25}
                   color="#FFFFFF"
-                  iconStyle={{ marginTop: 10 }}
+                  iconStyle={styles.margin}
                 />
               </View>
               <Text style={styles.textInfo}>
@@ -285,75 +285,100 @@ export default function Event({ route }) {
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
+const white = "white";
+const bgBtnReserv = "#FC1055";
+const bgBtnReservCancel = "#FDBA74";
+const blackBg = "#0B0D1B";
+
 const styles = StyleSheet.create({
+
   back: {
     marginTop: 20,
   },
+
   buttonMore: {
-    backgroundColor: "white",
+    backgroundColor: white,
     borderRadius: 10,
     width: width / 2.5,
   },
+
   buttonReserv: {
-    backgroundColor: "#FC1055",
+    backgroundColor: bgBtnReserv,
     borderRadius: 10,
     width: width / 2.5,
   },
+  
   buttonReservCancel: {
-    backgroundColor: "#FDBA74",
+    backgroundColor: bgBtnReservCancel,
     borderRadius: 10,
     width: width / 2.5,
   },
+
   container: {
     flex: 1,
     height: 100,
     padding: 10,
     width: width / 1.1,
   },
+
   contentMore: {
     padding: 10,
   },
+
   image: {
     height: height / 1.4,
     padding: 10,
   },
+
   info: {
     flex: 1,
     flexDirection: "row",
   },
+
   infoBtn: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
   },
+
   infoBtn2: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
     padding: 10,
   },
+
   littleInfo: {
-    backgroundColor: "#0B0D1B",
+    backgroundColor: blackBg,
     height: height / 3,
     padding: 10,
   },
+
   mainContainer: {
-    backgroundColor: "#0B0D1B",
+    backgroundColor: blackBg,
   },
+
   map: {
     height: "100%",
     width: "100%",
   },
+
+  margin: {
+    marginTop : 10
+  },
+
   moreInfo: {
-    backgroundColor: "white",
+    backgroundColor: white,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
   },
+
   orgaCont: {
     flex: 1,
     flexDirection: "row",
     padding: 10,
   },
+
   stretch: {
     borderRadius: 100,
     height: 90,
@@ -361,36 +386,42 @@ const styles = StyleSheet.create({
     resizeMode: "stretch",
     width: 90,
   },
+
   textInfo: {
-    color: "white",
+    color: white,
     fontSize: 15,
     paddingLeft: 20,
   },
+
   textMore: {
-    color: "#FC1055",
+    color: bgBtnReserv,
     fontWeight: "bold",
     paddingLeft: 18,
     paddingTop: 14,
   },
+
   textReserv: {
-    color: "#FFFFF",
+    color: white,
     fontWeight: "bold",
     paddingLeft: 18,
     paddingTop: 14,
   },
+
   textReservCancel: {
-    color: "#FFFFF",
+    color: white,
     fontWeight: "bold",
     paddingLeft: 22,
     paddingTop: 14,
   },
+
   title: {
-    color: "white",
+    color: white,
     fontSize: 30,
     fontWeight: "bold",
     marginLeft: 30,
     marginTop: height / 1.8,
   },
+
   titleMore: {
     fontSize: 25,
     fontWeight: "bold",

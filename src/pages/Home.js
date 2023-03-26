@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   ScrollView,
-  Dimensions,
   RefreshControl,
   SafeAreaView,
 } from "react-native";
@@ -132,43 +131,14 @@ export default function Home({ navigation }) {
   );
 }
 
-const width = Dimensions.get("window").width;
+const black = "black";
 const styles = StyleSheet.create({
   container: {
     marginLeft: 10,
   },
 
-  image: {
-    height: "100%",
-    width: "100%",
-  },
-  imageContainer: {
-    elevation: 13,
-    height: 130,
-    marginBottom: 50,
-    marginLeft: width / 7,
-    marginTop: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.39,
-    shadowRadius: 8.3,
-
-    width: width / 1.5,
-  },
-  insideImg: {
-    color: "#DDDDDD",
-    fontSize: 20,
-    fontWeight: "bold",
-    marginLeft: 28,
-    marginTop: 50,
-    textShadowColor: "black",
-    textShadowRadius: 4,
-  },
   title: {
-    color: "black",
+    color: black,
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 30,

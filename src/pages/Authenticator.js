@@ -9,8 +9,7 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
-import Colors from "../constants/colors";
+import { useState } from "react";
 import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Register";
 
@@ -70,10 +69,14 @@ export default function Authenticator({ navigation }) {
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height; //full height
 
+const backgroundColorChoice = "#DFDDDD";
+const white = "white";
+const bkColorMainContainer = "#fff";
+
 const styles = StyleSheet.create({
   choice1: {
     alignItems: "center",
-    backgroundColor: "#DFDDDD",
+    backgroundColor: backgroundColorChoice,
     borderBottomLeftRadius: 5,
     borderTopLeftRadius: 5,
     height: height / 23,
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
   },
   choice2: {
     alignItems: "center",
-    backgroundColor: "#DFDDDD",
+    backgroundColor: backgroundColorChoice,
     borderBottomRightRadius: 5,
     borderTopRightRadius: 5,
     height: height / 23,
@@ -99,22 +102,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 30,
   },
-  footerText: {
-    fontSize: 15,
-    marginTop: 20,
-  },
+
   logoContainer: {
     alignItems: "center",
     justifyContent: "center",
     marginTop: 130,
   },
   mainContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: bkColorMainContainer,
     flex: 1,
   },
   selec: {
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: white,
     borderRadius: 5,
     height: "90%",
     justifyContent: "center",
@@ -129,13 +129,10 @@ const styles = StyleSheet.create({
     resizeMode: "stretch",
     width: 170,
   },
-  text: {
-    alignItems: "center",
-    color: Colors.accent,
-  },
+
   unSelec: {
     alignItems: "center",
-    backgroundColor: "#DFDDDD",
+    backgroundColor: backgroundColorChoice,
     borderRadius: 5,
     height: "90%",
     justifyContent: "center",
