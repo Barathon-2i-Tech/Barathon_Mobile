@@ -4,7 +4,7 @@ import Authenticator from "./src/pages/Authenticator";
 import Home from "./src/pages/Home";
 import Event from "./src/pages/Event";
 import EventsByCategory from "./src/pages/EventsByCategory";
-import SearchEvent from "./src/pages/SearchEvent";
+import Search from "./src/pages/Search";
 import Notification from "./src/pages/Notification";
 import Dashboard from "./src/pages/Dashboard";
 import { NavigationContainer } from "@react-navigation/native";
@@ -40,7 +40,7 @@ function HomeTabs() {
             <MaterialCommunityIcons name="magnify" color={color} size={26} />
           ),
         }}
-        component={SearchEvent}
+        component={Search}
       />
       <Tab.Screen
         name="Notif"
