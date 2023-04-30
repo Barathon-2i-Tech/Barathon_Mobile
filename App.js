@@ -3,6 +3,7 @@ import {} from "react-native";
 import Authenticator from "./src/pages/Authenticator";
 import Home from "./src/pages/Home";
 import Event from "./src/pages/Event";
+import Establishment from "./src/pages/Establishment";
 import EventsByCategory from "./src/pages/EventsByCategory";
 import Search from "./src/pages/Search";
 import Notification from "./src/pages/Notification";
@@ -79,6 +80,7 @@ export default function App() {
         />
         <Stack.Screen options={{ headerShown: false }} name="HomeStack" component={HomeTabs} />
         <Stack.Screen options={{ headerShown: false }} name="Event" component={Event} />
+        <Stack.Screen options={{ headerShown: false }} name="Establishment" component={Establishment} />
         <Stack.Screen options={{ headerShown: false }} name="EventsByCategory" component={EventsByCategory} />
       </Stack.Navigator>
     </NavigationContainer>
