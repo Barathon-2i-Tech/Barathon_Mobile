@@ -65,7 +65,7 @@ export default function Search({navigation}) {
 
     const goToEstablishment = (establishment) => {
         navigation.navigate("Establishment", {
-          event_id: establishment,
+          establishment: establishment,
           user: user,
           navigation: navigation,
         });
