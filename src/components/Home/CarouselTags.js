@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
 
   flatHeight  :{
-    height: 300,
+    height: 90,
   },
 
   flatPadding :{

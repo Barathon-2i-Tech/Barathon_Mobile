@@ -1,11 +1,14 @@
 // eslint-disable-next-line no-unused-vars
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
-import { StyleSheet, View, Button} from 'react-native';
+import { StyleSheet, View, Button, Switch, Text} from 'react-native';
 import MapView, { Marker, Callout } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { getDataObject } from "../constants/localStorage";
 import Axios from "../constants/axios";
+// @ts-ignore
+import bar from '../../assets/image/bar.png';
+import chopB from '../../assets/image/chopB.png';
 
 
 
@@ -13,7 +16,9 @@ export default function Search({navigation}) {
     const [location, setLocation] = useState(null);
     const [user, setUser] = useState({});
     const [establishment, setEstablishment] = useState({});
+    const [event, setEvent] = useState({});
     const [load, setLoad] = useState(false);
+    const [choice, setChoice] = useState(false);
 
     async function setDatas() {
         getDataObject("user").then((res) => {
@@ -25,8 +30,8 @@ export default function Search({navigation}) {
               },
             })
             .then((response) => {
-                console.log("oui");
                 setEstablishment(response.data.data.establishments);
+                setEvent(response.data.data.events);
               setLoad(true);
             })
             .catch((error) => {
@@ -70,6 +75,15 @@ export default function Search({navigation}) {
           navigation: navigation,
         });
       };
+
+      const goToEvent = (event_id) => {
+        navigation.navigate("Event", {
+          event_id: event_id,
+          user: user,
+          navigation: navigation,
+        });
+      };
+
     return (
         <View style={styles.container}>
         {load == true && (
@@ -82,25 +96,64 @@ export default function Search({navigation}) {
                     longitudeDelta: 0.0421,
                 }}
             >
-                {location && <Marker coordinate={location.coords} />}
-                {establishment.map((marker, index) => (
-                    <Marker
-                    key={index}
-                    coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
-                    title={marker.trade_name}
-                    description="Voir les évènemments..."
-
-                    >
-                    <Callout
-                        onPress={() => {
-                            goToEstablishment(marker);
-                        }}
-                    >
-                    </Callout>
-                    </Marker>
-                ))}
+                {location && <Marker coordinate={location.coords} title="YOU"/>}
+                {choice == false && (
+                  <>  
+                    
+                      {establishment.map((marker, index) => (
+                          <Marker
+                            key={index}
+                            coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+                            title={marker.trade_name}
+                            description="Voir les évènements..."
+                            image={bar}
+                          >
+                            <Callout
+                                onPress={() => {
+                                    goToEstablishment(marker);
+                                }}
+                            >
+                            </Callout>
+                          </Marker>
+                      ))}
+                  </>
+                )}
+                {choice == true && (
+                  <>  
+                    {event.map((marker, index) => (
+                        <Marker
+                          key={index}
+                          coordinate={{latitude: marker.latitude, longitude: marker.longitude}}
+                          title={marker.event_name}
+                          description="Voir le détail de l'évènement..."
+                          image={chopB}
+                        >
+                          <Callout
+                              onPress={() => {
+                                goToEvent(marker.event_id);
+                              }}
+                          >
+                          </Callout>
+                        </Marker>
+                    ))}
+                  </>
+                )}
             </MapView>
-            <Button title="Get Location" onPress={handlePress} />
+            <View>
+              <View style={styles.containerSwitch}>
+                <Text style={styles.switchText}>Bar</Text>
+                <Switch
+                  trackColor={{false: '#155E75', true: '#155E75'}}
+                  thumbColor={choice ? '#FDBA74' : '#f4f3f4'}
+                  ios_backgroundColor="#3e3e3e"
+                  onValueChange={(value) => setChoice(value)}
+                  value={choice}
+                />
+                <Text style={styles.switchText}>Événements les 7 prochains jours</Text>
+              </View>
+              <Button title="Refresh Location" onPress={handlePress} />
+            </View>
+            
           </>
         )}
 
@@ -111,14 +164,25 @@ export default function Search({navigation}) {
 
 const white = '#fff'
 const styles = StyleSheet.create({
+
     container: {
         alignItems: 'center',
         backgroundColor: white,
         flex: 1,
         justifyContent: 'center',
     },
+
+    containerSwitch: {
+      flexDirection : 'row',
+      justifyContent: "space-between",
+    },
+
     map: {
         height: '90%',
         width: '100%',
     },
+
+    switchText: {
+      marginTop : 13,
+    }
 });
