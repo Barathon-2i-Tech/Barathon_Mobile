@@ -3,9 +3,10 @@ import {} from "react-native";
 import Authenticator from "./src/pages/Authenticator";
 import Home from "./src/pages/Home";
 import Event from "./src/pages/Event";
+import QrCode from "./src/pages/QrCode";
 import EventsByCategory from "./src/pages/EventsByCategory";
 import SearchEvent from "./src/pages/SearchEvent";
-import Notification from "./src/pages/Notification";
+import Ticket from "./src/pages/Ticket";
 import Dashboard from "./src/pages/Dashboard";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
@@ -47,10 +48,10 @@ function HomeTabs() {
         options={{
           tabBarLabel: "",
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={26} />
+            <MaterialCommunityIcons name="qrcode" color={color} size={26} />
           ),
         }}
-        component={Notification}
+        component={Ticket}
       />
       <Tab.Screen
         name="Dashboard"
@@ -79,6 +80,7 @@ export default function App() {
         />
         <Stack.Screen options={{ headerShown: false }} name="HomeStack" component={HomeTabs} />
         <Stack.Screen options={{ headerShown: false }} name="Event" component={Event} />
+        <Stack.Screen options={{ headerShown: false }} name="QrCode" component={QrCode} />
         <Stack.Screen options={{ headerShown: false }} name="EventsByCategory" component={EventsByCategory} />
       </Stack.Navigator>
     </NavigationContainer>
