@@ -1,18 +1,18 @@
-import { StyleSheet, Text, View, Dimensions, SafeAreaView, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Dimensions, SafeAreaView, ScrollView, Pressable } from "react-native";
 import Axios from "../constants/axios";
 import React, { useEffect, useState } from "react";
 import { getDataObject } from "../constants/localStorage";
 import QRCode from 'react-native-qrcode-svg';
 
-export default function Ticket() {
+export default function Ticket({navigation}) {
 
-  //const [user, setUser] = useState({});
+  const [user, setUser] = useState({});
   const [eventsBook, setEventsBook] = useState({});
   const [load, setLoad] = useState(false);
 
   async function setDatas() {
     getDataObject("user").then((res) => {
-      //setUser(res);
+      setUser(res);
       Axios.api
       .get("/barathonien/" + res.userLogged.user_id + "/booking/events", {
         headers: {
@@ -28,6 +28,14 @@ export default function Ticket() {
         console.log(error);
       });
     });
+  }
+
+  const goToEvent = (event_id) => {
+    navigation.navigate("Event", { event_id: event_id, user : user, navigation : navigation });
+  }
+
+  const goToQr = (URL) => {
+    navigation.navigate("QrCode", { url: URL, navigation : navigation });
   }
 
   useEffect(() => {
@@ -50,19 +58,23 @@ export default function Ticket() {
                   <View key={key}>
                     {
                       eventsBook[key].map((event) => {
+                        const URL = "http://127.0.0.1:5173/pro/event/"+event.event.event_id+"/barathonien/" + user.userLogged.barathonien_id;
                         return (
                           <View key={event.event_id} style={styles.containerQr}>
                             
                               <View>
-                                <Text>{event.event.event_name}</Text>
-                                <Text>{event.event.start_event}</Text>
+                                <Pressable onPress={() => {goToEvent(event.event.event_id)}}>
+                                  <Text>{event.event.event_name}</Text>
+                                  <Text>{event.event.start_event}</Text>
+                                </Pressable>
                               </View>
                             
-                            
                               <View>
+                                <Pressable onPress={() => {goToQr(URL)}}>
                                   <QRCode
-                                    value="http://awesome.link.qr"
+                                    value={URL}
                                   />
+                                </Pressable>
                               </View>
                           </View>
                         )
