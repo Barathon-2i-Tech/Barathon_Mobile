@@ -28,12 +28,11 @@ export default function Ticket({ navigation }) {
           },
         })
         .then((response) => {
-          console.log("ouioui", response.data.data.bookings);
           setEventsBook(response.data.data.bookings);
           setLoad(true);
         })
         .catch((error) => {
-          console.log(error);
+          console.log({error});
         });
     });
   }
