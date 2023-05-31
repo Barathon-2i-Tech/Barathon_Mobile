@@ -1,131 +1,186 @@
 /* eslint-disable react/prop-types */
 
-import { StyleSheet, Text, View, Image, Dimensions, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Pressable,
+  ImageBackground,
+  ScrollView,
+} from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Carousel from "../components/Home/Carousel";
 
 export default function Establishment({ route }) {
   const { establishment, user, navigation } = route.params;
 
-
   return (
-    <View>
-
+    <ScrollView style={styles.mainContainer}>
+      <ImageBackground
+        source={{ uri: establishment.logo }}
+        resizeMode="cover"
+        style={styles.image}
+      >
         <View style={styles.back}>
-            <Pressable
-                onPress={() => {
-                    navigation.navigate("HomeStack");
-                }}
-            >
-                <Ionicons
-                    name="arrow-back"
-                    size={30}
-                    color="black"
-                    iconStyle={styles.margin}
-                />
-            </Pressable>
+          <Pressable
+            onPress={() => {
+              navigation.navigate("HomeStack");
+            }}
+          >
+            <Ionicons
+              name="arrow-back"
+              size={30}
+              color="#FFFFFF"
+              iconStyle={styles.margin}
+            />
+          </Pressable>
         </View>
 
-        <View style={styles.establishmentContainer}>
-            <View style={styles.containerImg}>
-                <Image
-                    style={styles.stretch}
-                    source={{ uri: establishment.logo }}
-                />
-            </View>
-            <View>
-                <Text style={styles.title}>
-                    {establishment.trade_name}
-                </Text>
-                <Text style={styles.desc}>
-                    {establishment.phone} - {establishment.email} - {establishment.website}
-                </Text>
-            </View>
+        <Text style={styles.title}>{establishment.trade_name}</Text>
+      </ImageBackground>
+      <View style={styles.establishmentContainer}>
+        <View style={styles.info}>
+          <View style={styles.infoLogo}>
+            <Ionicons
+              name="ios-phone-portrait-outline"
+              size={25}
+              color="#FFFFFF"
+              iconStyle={styles.margin}
+            />
+          </View>
+
+          <Text style={styles.textInfo}>{establishment.phone}</Text>
+        </View>
+        <View style={styles.info}>
+          <View style={styles.infoLogo}>
+            <Ionicons
+              name="mail"
+              size={25}
+              color="#FFFFFF"
+              iconStyle={styles.margin}
+            />
+          </View>
+
+          <Text style={styles.textInfo}>{establishment.email}</Text>
+        </View>
+
+        <View style={styles.info}>
+          <View style={styles.infoLogo}>
+            <Ionicons
+              name="logo-google"
+              size={25}
+              color="#FFFFFF"
+              iconStyle={styles.margin}
+            />
+          </View>
+
+          <Text style={styles.textInfo}>{establishment.website}</Text>
+        </View>
+
+        <View style={styles.info}>
+          <View style={styles.infoLogo}>
+            <Ionicons
+              name="calendar"
+              size={25}
+              color="#FFFFFF"
+              iconStyle={styles.margin}
+            />
+          </View>
+
+          <Text style={styles.textInfo}>Ouverture</Text>
         </View>
 
         <View style={styles.opening}>
-            <Text style={styles.desc}>
-                Lundi : {establishment.opening.Lundi}
-            </Text>
+          <Text style={styles.desc}>Lundi : {establishment.opening.Lundi}</Text>
 
-            <Text style={styles.desc}>
-                Mardi : {establishment.opening.Mardi}
-            </Text>
+          <Text style={styles.desc}>Mardi : {establishment.opening.Mardi}</Text>
 
-            <Text style={styles.desc}>
-                Mercredi : {establishment.opening.Mercredi}
-            </Text>
+          <Text style={styles.desc}>
+            Mercredi : {establishment.opening.Mercredi}
+          </Text>
 
-            <Text style={styles.desc}>
-                Jeudi : {establishment.opening.Jeudi}
-            </Text>
+          <Text style={styles.desc}>Jeudi : {establishment.opening.Jeudi}</Text>
 
-            <Text style={styles.desc}>
-                Vendredi : {establishment.opening.Vendredi}
-            </Text>
+          <Text style={styles.desc}>
+            Vendredi : {establishment.opening.Vendredi}
+          </Text>
 
-            <Text style={styles.desc}>
-                Samedi : {establishment.opening.Samedi}
-            </Text>
+          <Text style={styles.desc}>
+            Samedi : {establishment.opening.Samedi}
+          </Text>
 
-            <Text style={styles.desc}>
-                Dimanche : {establishment.opening.Dimanche}
-            </Text>
+          <Text style={styles.desc}>
+            Dimanche : {establishment.opening.Dimanche}
+          </Text>
         </View>
-
-        <Carousel
-                DATA={establishment.events}
-                navigation={navigation}
-                user={user}
-        ></Carousel>
-        
-    </View>
+            <Carousel
+            DATA={establishment.events}
+            navigation={navigation}
+            user={user}
+            ></Carousel>
+      </View>
+    </ScrollView>
   );
 }
 
-const width = Dimensions.get("window").width;
+//const width = Dimensions.get("window").width;
+const height = Dimensions.get("window").height;
+const white = "white";
+const blackBg = "#0B0D1B";
 const styles = StyleSheet.create({
+  back: {
+    marginTop: 20,
+  },
 
-    back: {
-        marginTop: 50,
-      },
+  desc: {
+    color: white,
+    textAlign: "center",
+  },
 
-    containerImg: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop : '0%',
-    },
+  establishmentContainer: {
+    backgroundColor: blackBg,
+    borderBottomWidth: 1,
+    borderTopLeftRadius : 10,
+    borderTopRightRadius : 10,
+    padding: 10,
+  },
 
-    desc: {
-        textAlign: 'center',
-    },
+  image: {
+    height: height / 1.4,
+    padding: 10,
+  },
 
-    establishmentContainer: {
-        borderBottomWidth : 1,
-        borderRadius : 10,
-        marginLeft : '4.5%',
-        marginTop : "10%",
-        width : width / 1.1,
-    },
+  info: {
+    flex: 1,
+    flexDirection: "row",
+  },
 
-    opening: {
-        marginTop : 20,
-    },
+  mainContainer: {
+    backgroundColor: blackBg,
+  },
 
-    stretch: {
-        borderRadius: 100,
-        height: 130,
-        overflow: "hidden",
-        resizeMode: "stretch",
-        width: 130,
-    },
+  margin: {
+    marginTop: 10,
+  },
 
-    title: {
-        fontSize: 20,
-        fontWeight : 'bold',
-        marginTop : 30,
-        textAlign: 'center',
-    }
+  
 
+  opening: {
+    marginTop: 20,
+  },
 
+  textInfo: {
+    color: white,
+    fontSize: 15,
+    paddingLeft: 20,
+  },
+
+  title: {
+    color: white,
+    fontSize: 30,
+    fontWeight: "bold",
+    marginLeft: 30,
+    marginTop: height / 1.8,
+  },
 });
