@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { StyleSheet, View, Pressable } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -36,7 +38,6 @@ const styles = StyleSheet.create({
 
   qrCodeContainer: {
     alignSelf: "flex-start",
-    marginTop: 100,
     marginLeft: 50,
   },
 });

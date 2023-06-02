@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   StyleSheet,
   Text,
@@ -8,7 +9,7 @@ import {
   Pressable,
 } from "react-native";
 import Axios from "../constants/axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getDataObject } from "../constants/localStorage";
 import QRCode from "react-native-qrcode-svg";
 
@@ -108,33 +109,36 @@ export default function Ticket({ navigation }) {
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
+const grey = "#CFCFCF";
+const white = "white";
+const black = "black";
 
 const styles = StyleSheet.create({
   containerQr: {
+    alignItems: "center",
+    borderBottomWidth: 1,
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 50,
     marginLeft: "8%",
+    marginTop: 50,
     paddingBottom: 20,
     width: width / 1.2,
-    borderBottomWidth: 1,
-    alignItems: "center",
   },
 
   header: {
-    backgroundColor: "white",
-    width: "100%",
-    height: height / 9,
+    backgroundColor: white,
+    borderBottomColor: grey,
     borderBottomWidth: 1,
-    borderBottomColor: "#CFCFCF",
+    height: height / 9,
+    width: "100%",
   },
 
   title: {
-    color: "black",
-    textAlign: "center",
-    marginTop: "12%",
+    color: black,
     fontSize: 20,
     fontWeight: "bold",
+    marginTop: "12%",
+    textAlign: "center",
   },
 });

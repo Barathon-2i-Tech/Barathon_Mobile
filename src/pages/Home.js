@@ -1,7 +1,13 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 
-import { StyleSheet, Text, ScrollView, Dimensions, RefreshControl, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  RefreshControl,
+  SafeAreaView,
+} from "react-native";
 import { getDataObject } from "../constants/localStorage";
 import React, { useEffect, useState } from "react";
 import Header from "../components/Home/Header";
@@ -19,12 +25,10 @@ export default function Home({ navigation }) {
   const [load, setLoad] = useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
 
-
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     setDatas();
   }, []);
-
 
   async function getTopTags(user) {
     Axios.api
@@ -58,7 +62,6 @@ export default function Home({ navigation }) {
       });
   }
 
-
   async function setDatas() {
     getDataObject("user").then((res) => {
       setUser(res);
@@ -74,7 +77,7 @@ export default function Home({ navigation }) {
           setRefreshing(false);
         })
         .catch((error) => {
-          console.log({error});
+          console.log({ error });
         });
     });
   }
@@ -86,74 +89,58 @@ export default function Home({ navigation }) {
   return (
     <SafeAreaView>
       <ScrollView
-      style={styles.container}
+        style={styles.container}
         refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }>
-
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         {load == true && (
           <>
             <Header user={user}></Header>
             <Text style={styles.title}>Quoi de neuf dans ta ville ?</Text>
-            {
-              events.length == 0 ?
-                (<Error error={"Ohhh non.. Il n'y a pas d'événements prévu pour ta ville..."} />) :
-                (<Carousel DATA={events} navigation={navigation} user={user}></Carousel>)
-            }
+            {events.length == 0 ? (
+              <Error
+                error={
+                  "Ohhh non.. Il n'y a pas d'événements prévu pour ta ville..."
+                }
+              />
+            ) : (
+              <Carousel
+                DATA={events}
+                navigation={navigation}
+                user={user}
+              ></Carousel>
+            )}
             <Text style={styles.title}>Découvrir</Text>
-            <CarouselTags DATA={tags} navigation={navigation} user={user}></CarouselTags>
+            <CarouselTags
+              DATA={tags}
+              navigation={navigation}
+              user={user}
+            ></CarouselTags>
 
             <Text style={styles.title}>Mes prochains évènements</Text>
-            <Agenda events={eventsBook} navigation={navigation} user={user}></Agenda>
-
+            <Agenda
+              events={eventsBook}
+              navigation={navigation}
+              user={user}
+            ></Agenda>
           </>
         )}
       </ScrollView>
     </SafeAreaView>
-
   );
 }
 
-const width = Dimensions.get("window").width;
+const black = "black";
 const styles = StyleSheet.create({
   container: {
     marginLeft: 10,
   },
 
   title: {
+    color: black,
+    fontSize: 20,
+    fontWeight: "bold",
     marginTop: 30,
-    color: 'black',
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  insideImg: {
-    color: '#DDDDDD',
-    textShadowColor: 'black',
-    textShadowRadius: 4,
-    marginTop: 50,
-    fontWeight: "bold",
-    fontSize: 20,
-    marginLeft: 28,
-  },
-  imageContainer: {
-    width: width / 1.5,
-    height: 130,
-    marginBottom: 50,
-    marginTop: 20,
-    marginLeft: width / 7,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.39,
-    shadowRadius: 8.30,
-
-    elevation: 13,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-
   },
 });

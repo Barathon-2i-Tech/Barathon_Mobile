@@ -9,8 +9,7 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
-import Colors from "../constants/colors";
+import { useState } from "react";
 import Login from "../components/Auth/Login";
 import Register from "../components/Auth/Register";
 
@@ -70,78 +69,76 @@ export default function Authenticator({ navigation }) {
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height; //full height
 
+const backgroundColorChoice = "#DFDDDD";
+const white = "white";
+const bkColorMainContainer = "#fff";
+
 const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  text: {
-    color: Colors.accent,
-    alignItems: "center",
-  },
-  container: {
-    flex: 0.5,
-    flexDirection: "row",
-    marginBottom: 20,
-    marginTop : 30,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   choice1: {
-    marginTop: 50,
-    height: height / 23,
-    width: width / 2.2,
-    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#DFDDDD",
-    borderTopLeftRadius: 5,
+    backgroundColor: backgroundColorChoice,
     borderBottomLeftRadius: 5,
+    borderTopLeftRadius: 5,
+    height: height / 23,
+    justifyContent: "center",
+    marginTop: 50,
+    width: width / 2.2,
   },
   choice2: {
-    marginTop: 50,
-    height: height / 23,
-    width: width / 2.2,
-    justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#DFDDDD",
-    borderTopRightRadius: 5,
+    backgroundColor: backgroundColorChoice,
     borderBottomRightRadius: 5,
+    borderTopRightRadius: 5,
+    height: height / 23,
+    justifyContent: "center",
+    marginTop: 50,
+    width: width / 2.2,
+  },
+  container: {
+    alignItems: "center",
+    flex: 0.5,
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 20,
+    marginTop: 30,
+  },
+
+  logoContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 130,
+  },
+  mainContainer: {
+    backgroundColor: bkColorMainContainer,
+    flex: 1,
   },
   selec: {
-    backgroundColor: "white",
-    height: "90%",
-    width: "97%",
-    justifyContent: "center",
     alignItems: "center",
+    backgroundColor: white,
     borderRadius: 5,
+    height: "90%",
+    justifyContent: "center",
+    width: "97%",
   },
   selecText: {
-    textAlign: "center",
     fontWeight: "bold",
-  },
-  unSelec: {
-    backgroundColor: "#DFDDDD",
-    height: "90%",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 5,
-  },
-  unSelecText: {
     textAlign: "center",
-    fontWeight: "bold",
-  },
-  logoContainer: {
-    marginTop: 130,
-    justifyContent: "center",
-    alignItems: "center",
   },
   stretch: {
-    width: 170,
     height: 160,
     resizeMode: "stretch",
+    width: 170,
   },
-  footerText: {
-    marginTop: 20,
-    fontSize: 15,
+
+  unSelec: {
+    alignItems: "center",
+    backgroundColor: backgroundColorChoice,
+    borderRadius: 5,
+    height: "90%",
+    justifyContent: "center",
+  },
+  unSelecText: {
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });

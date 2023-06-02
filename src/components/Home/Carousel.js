@@ -9,11 +9,8 @@ import {
   Pressable,
 } from "react-native";
 import React, { useState } from "react";
-import moment from 'moment-timezone';
-import Ionicons from '@expo/vector-icons/Ionicons';
-
-
-
+import moment from "moment-timezone";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function Carousel({ DATA, navigation, user }) {
   const [scrollViewWidth, setScrollViewWidth] = useState(0);
@@ -23,7 +20,11 @@ export default function Carousel({ DATA, navigation, user }) {
   const pan = React.useRef(new Animated.ValueXY()).current;
 
   const handleSubmit = (event_id) => {
-    navigation.navigate("Event", { event_id: event_id, user : user, navigation : navigation });
+    navigation.navigate("Event", {
+      event_id: event_id,
+      user: user,
+      navigation: navigation,
+    });
   };
 
   const renderItem = ({ item, index }) => (
@@ -44,27 +45,41 @@ export default function Carousel({ DATA, navigation, user }) {
         ],
       }}
     >
-      <Pressable onPress={() => { handleSubmit(item.event_id) }}>
+      <Pressable
+        onPress={() => {
+          handleSubmit(item.event_id);
+        }}
+      >
         <View
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{
             height: "100%",
             width: boxWidth,
             borderRadius: 20,
-            overflow: 'hidden',
-
+            overflow: "hidden",
           }}
         >
-
-          <ImageBackground source={{ uri: item.poster }} resizeMode="cover" style={styles.image}>
-            <Text style={styles.date}>{moment(item.start_event).tz('Europe/Paris').format('dddd MMM YY, HH') + 'H'}</Text>
+          <ImageBackground
+            source={{ uri: item.poster }}
+            resizeMode="cover"
+            style={styles.image}
+          >
+            <Text style={styles.date}>
+              {moment(item.start_event)
+                .tz("Europe/Paris")
+                .format("dddd MMM YY, HH") + "H"}
+            </Text>
             <Text style={styles.title}>{item.event_name}</Text>
             <View style={styles.infoContainer}>
-              <Ionicons name="pricetag" size={15} color="#DDDDDD" iconStyle={{ marginTop: 10 }} />
+              <Ionicons
+                name="pricetag"
+                size={15}
+                color="#DDDDDD"
+                iconStyle={styles.icon}
+              />
               <Text style={styles.info}>{item.price} €</Text>
             </View>
-
           </ImageBackground>
-
         </View>
       </Pressable>
     </Animated.View>
@@ -75,8 +90,8 @@ export default function Carousel({ DATA, navigation, user }) {
       <FlatList
         horizontal
         data={DATA}
-        style={{ height: 300 }}
-        contentContainerStyle={{ paddingVertical: 16 }}
+        style={styles.flatHeight}
+        contentContainerStyle={styles.flatPadding}
         contentInsetAdjustmentBehavior="never"
         snapToAlignment="center"
         decelerationRate="fast"
@@ -106,46 +121,66 @@ export default function Carousel({ DATA, navigation, user }) {
   );
 }
 
+const white = "white";
+const black = "black";
+const bkColor = "rgba(52, 52, 52, 0.7)";
+const bkColor2 = "rgba(52, 52, 52, 0.5)";
+const colorContainer = "#DDDDDD";
+
 const styles = StyleSheet.create({
-  date: {
-    paddingTop: 10,
-    paddingLeft: 10,
-    marginTop: '55%',
-    color: 'white',
-    backgroundColor: 'rgba(52, 52, 52, 0.7)',
-    textShadowColor: 'black',
-    textShadowRadius: 4,
-  },
-  title: {
-    color: 'white',
-    backgroundColor: 'rgba(52, 52, 52, 0.7)',
-    paddingLeft: 10,
-    fontSize: 20,
-    textShadowColor: 'black',
-    textShadowRadius: 4,
-  },
-  info: {
-    color: 'white',
-    paddingLeft: 10,
-    fontSize: 15,
-    textShadowColor: 'black',
-    textShadowRadius: 4,
-  },
   container: {
     marginTop: 10,
   },
+  date: {
+    backgroundColor: bkColor,
+    color: white,
+    marginTop: "55%",
+    paddingLeft: 10,
+    paddingTop: 10,
+    textShadowColor: black,
+    textShadowRadius: 4,
+  },
+
+  flatHeight  :{
+    height: 300,
+  },
+
+  flatPadding :{
+    paddingVertical: 16
+  },
+
+  icon : {
+    marginTop: 10,
+  },
+
   image: {
     flex: 1,
     justifyContent: "center",
-
   },
+
+  info: {
+    color: white,
+    fontSize: 15,
+    paddingLeft: 10,
+    textShadowColor: black,
+    textShadowRadius: 4,
+  },
+
   infoContainer: {
+    backgroundColor: bkColor2,
+    color: colorContainer,
     flex: 1,
     flexDirection: "row",
     paddingLeft: 10,
-    backgroundColor: 'rgba(52, 52, 52, 0.5)',
-    color: '#DDDDDD',
-    textShadowColor: 'black',
+    textShadowColor: black,
+    textShadowRadius: 4,
+  },
+  title: {
+    backgroundColor: bkColor,
+    color: white,
+    fontSize: 20,
+    paddingLeft: 10,
+    textShadowColor: black,
     textShadowRadius: 4,
   },
 });

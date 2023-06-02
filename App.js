@@ -1,11 +1,12 @@
 import {} from "expo-status-bar";
-import {} from "react-native";
+import {  StyleSheet } from "react-native";
 import Authenticator from "./src/pages/Authenticator";
 import Home from "./src/pages/Home";
 import Event from "./src/pages/Event";
-import QrCode from "./src/pages/QrCode";
+import Establishment from "./src/pages/Establishment";
 import EventsByCategory from "./src/pages/EventsByCategory";
-import SearchEvent from "./src/pages/SearchEvent";
+import Search from "./src/pages/Search";
+import QrCode from "./src/pages/QrCode";
 import Ticket from "./src/pages/Ticket";
 import Dashboard from "./src/pages/Dashboard";
 import { NavigationContainer } from "@react-navigation/native";
@@ -20,7 +21,7 @@ function HomeTabs() {
     <Tab.Navigator
       activeColor="#FC1055"
       inactiveColor="#CACDD4"
-      barStyle={{ backgroundColor: '#FFFFFF' }}
+      barStyle={styles.color}
     
     >
       <Tab.Screen
@@ -41,7 +42,7 @@ function HomeTabs() {
             <MaterialCommunityIcons name="magnify" color={color} size={26} />
           ),
         }}
-        component={SearchEvent}
+        component={Search}
       />
       <Tab.Screen
         name="Notif"
@@ -80,9 +81,17 @@ export default function App() {
         />
         <Stack.Screen options={{ headerShown: false }} name="HomeStack" component={HomeTabs} />
         <Stack.Screen options={{ headerShown: false }} name="Event" component={Event} />
+        <Stack.Screen options={{ headerShown: false }} name="Establishment" component={Establishment} />
         <Stack.Screen options={{ headerShown: false }} name="QrCode" component={QrCode} />
         <Stack.Screen options={{ headerShown: false }} name="EventsByCategory" component={EventsByCategory} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+const white = "white";
+const styles = StyleSheet.create({
+  color: {
+    backgroundColor : white
+  },
+});
