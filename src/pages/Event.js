@@ -193,7 +193,7 @@ export default function Event({ route }) {
                   }}
                   style={styles.buttonMore}
                 >
-                  <Text style={styles.textMore}>Plus d&apos;information</Text>
+                  <Text style={styles.textMore}>Plus d&apos;informations</Text>
                 </Pressable>
                 {!place ? (
                   <Pressable onPress={savePlace} style={styles.buttonReserv}>

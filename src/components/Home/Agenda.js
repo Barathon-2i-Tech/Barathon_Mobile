@@ -29,7 +29,7 @@ export default function Agendas({ navigation, events, user }) {
             <View style={styles.header}>
               <Text style={styles.headerTitle}>{key}</Text>
               <View>
-                <Ionicons name="calendar" size={30} color="red" />
+                <Ionicons name="calendar" size={30} color="black" />
               </View>
             </View>
             {events[key].map((eventBook) => {
