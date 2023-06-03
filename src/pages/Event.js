@@ -31,7 +31,7 @@ export default function Event({ route }) {
         {
           user_id: user.userLogged.user_id,
           event_id: event_id,
-          isFav: false,
+          ticket: false,
         },
         {
           headers: {
