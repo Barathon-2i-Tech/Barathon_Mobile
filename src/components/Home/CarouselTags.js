@@ -55,7 +55,6 @@ export default function Carousel({ DATA, navigation, user }) {
           <View style={styles.infoContainer}>
             <View style={styles.iconContainer}>
               <View style={styles.icon}>
-                
                 <Ionicons name="home" size={25} color="#000000" iconStyle={{ marginLeft: 20 }} />
               </View>
 

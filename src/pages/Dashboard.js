@@ -1,9 +1,12 @@
-import { StyleSheet, Image, View, Dimensions, Text } from "react-native";
+/* eslint-disable react/prop-types */
+
+import { StyleSheet, Image, View, Dimensions, Text, Pressable } from "react-native";
 import Colors from "../constants/colors";
 import React, { useEffect, useState } from "react";
 import { getDataObject } from "../constants/localStorage";
+import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function Dashboard() {
+export default function Dashboard({ navigation }) {
 
   const [user, setUser] = useState({});
   const [load, setLoad] = useState(false);
@@ -19,6 +22,10 @@ export default function Dashboard() {
     setDatas();
   }, []);
 
+  const goToCondition = () => {
+    navigation.navigate("Condition");
+  }
+
   return (
     <View>
       {load == true && (
@@ -33,24 +40,44 @@ export default function Dashboard() {
             <Text>{user.userLogged.email}</Text>
             <View style={styles.mainContainer}>
               <View style={styles.caseTopOne}>
-                <Text>Mon profil</Text>
+                <View style={styles.icon}>
+                  <Ionicons name="person" size={25} color="#000000" iconStyle={{ marginLeft: 20 }} />
+                </View>
+                <Text style={styles.title}>Mon profil</Text>
               </View>
               <View style={styles.caseTopTwo}>
-                <Text>Mes evènnements</Text>
+                <View style={styles.icon}>
+                  <Ionicons name="calendar" size={25} color="#000000" iconStyle={{ marginLeft: 20 }} />
+                </View>
+                <Text style={styles.title}>Mes evènnements</Text>
               </View>
 
               <View style={styles.caseOne}>
-                <Text>Mes tickets</Text>
+                <View style={styles.icon}>
+                  <Ionicons name="qr-code-sharp" size={25} color="#000000" iconStyle={{ marginLeft: 20 }} />
+                </View>
+                <Text style={styles.title}>Mes tickets</Text>
               </View>
               <View style={styles.caseTwo}>
-                <Text>parametres</Text>
+                <View style={styles.icon}>
+                  <Ionicons name="settings-sharp" size={25} color="#000000" iconStyle={{ marginLeft: 20 }} />
+                </View>
+                <Text style={styles.title}>parametres</Text>
               </View>
 
-              <View style={styles.caseBotOne}>
-                <Text>Conditions d&apos;utilisation</Text>
-              </View>
+
+              <Pressable onPress={goToCondition} style={styles.caseBotOne}>
+                <View style={styles.icon}>
+                  <Ionicons name="ios-checkmark-circle-sharp" size={25} color="#000000" iconStyle={{ marginLeft: 20 }} />
+                </View>
+                <Text style={styles.title}>Conditions d&apos;utilisation</Text>
+              </Pressable>
+
               <View style={styles.caseBotTwo}>
-                <Text>Nous contacter</Text>
+                <View style={styles.icon}>
+                  <Ionicons name="mail" size={25} color="#000000" iconStyle={{ marginLeft: 20 }} />
+                </View>
+                <Text style={styles.title}>Nous contacter</Text>
               </View>
 
             </View>
@@ -72,9 +99,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  title: {
+    textAlign: 'center',
+  },
 
-
-
+  icon : {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop : 40,
+  },
   stretch: {
     width: 180,
     height: 180,

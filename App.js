@@ -7,6 +7,7 @@ import EventsByCategory from "./src/pages/EventsByCategory";
 import SearchEvent from "./src/pages/SearchEvent";
 import Notification from "./src/pages/Notification";
 import Dashboard from "./src/pages/Dashboard";
+import Condition from "./src/pages/dashboard/Condition";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -80,6 +81,7 @@ export default function App() {
         <Stack.Screen options={{ headerShown: false }} name="HomeStack" component={HomeTabs} />
         <Stack.Screen options={{ headerShown: false }} name="Event" component={Event} />
         <Stack.Screen options={{ headerShown: false }} name="EventsByCategory" component={EventsByCategory} />
+        <Stack.Screen options={{ headerShown: false }} name="Condition" component={Condition} />
       </Stack.Navigator>
     </NavigationContainer>
   );
