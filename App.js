@@ -3,6 +3,7 @@ import {  StyleSheet } from "react-native";
 import Authenticator from "./src/pages/Authenticator";
 import Home from "./src/pages/Home";
 import Event from "./src/pages/Event";
+import Profile from "./src/pages/Profile";
 import Establishment from "./src/pages/Establishment";
 import EventsByCategory from "./src/pages/EventsByCategory";
 import Search from "./src/pages/Search";
@@ -84,6 +85,7 @@ export default function App() {
         <Stack.Screen options={{ headerShown: false }} name="Establishment" component={Establishment} />
         <Stack.Screen options={{ headerShown: false }} name="QrCode" component={QrCode} />
         <Stack.Screen options={{ headerShown: false }} name="EventsByCategory" component={EventsByCategory} />
+        <Stack.Screen options={{ headerShown: false }} name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

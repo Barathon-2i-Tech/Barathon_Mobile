@@ -154,9 +154,9 @@ export default function Event({ route }) {
                 />
               </View>
               <Text style={styles.textInfo}>
-                {event.establishments.address.address},{" "}
-                {event.establishments.address.postal_code}{" "}
-                {event.establishments.address.city}
+                {event.establishment.address.address},{" "}
+                {event.establishment.address.postal_code}{" "}
+                {event.establishment.address.city}
               </Text>
             </View>
 
@@ -181,7 +181,7 @@ export default function Event({ route }) {
                 />
               </View>
               <Text style={styles.textInfo}>
-                {event.establishments.trade_name}
+                {event.establishment.trade_name}
               </Text>
             </View>
 
@@ -235,9 +235,9 @@ export default function Event({ route }) {
                 ></MapView>
               </View>
               <Text style={styles.contentMore}>
-                {event.establishments.address.address},{" "}
-                {event.establishments.address.postal_code}{" "}
-                {event.establishments.address.city}
+                {event.establishment.address.address},{" "}
+                {event.establishment.address.postal_code}{" "}
+                {event.establishment.address.city}
               </Text>
 
               <Text style={styles.titleMore}>Organisateur</Text>
@@ -245,14 +245,14 @@ export default function Event({ route }) {
               <View style={styles.orgaCont}>
                 <Image
                   style={styles.stretch}
-                  source={{ uri: event.establishments.logo }}
+                  source={{ uri: event.establishment.logo }}
                 />
                 <View>
                   <Text style={styles.contentMore}>
-                    {event.establishments.trade_name}
+                    {event.establishment.trade_name}
                   </Text>
                   <Text style={styles.contentMore}>
-                    {event.establishments.phone}
+                    {event.establishment.phone}
                   </Text>
                 </View>
               </View>
